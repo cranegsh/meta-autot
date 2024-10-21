@@ -1,0 +1,36 @@
+
+
+Get ready:
+1. get host Linux
+   Create a new machine Ubuntu 22.04 LTS on VirtualBox 7.1.4
+2. get tools
+   sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libsdl1.2-dev xterm python3-subunit mesa-common-dev zstd liblz4-tool pylint
+3. get vendor layer
+   git clone git://git.yoctoproject.org/meta-raspberrypi
+   git checkout scarthgap
+4. get poky
+   git clone git://git.yoctoproject.org/poky
+   git checkout scarthgap 
+
+Create custom layer
+1. create an empty layer
+   source sources/poky/oe-init-build-env 
+   bitbake-layers create-layer ../sources/meta-autot
+   bitbake-layers add-layer ../sources/meta-autot/
+2. edit build/conf/local.conf
+   copy build/conf/local.conf and bblayers.conf to ../sources/meta-autot/conf/templates/conf
+   generate initenv.sh with below contents in ~/work/yocto/:
+TEMPLATECONF=../meta-autot/conf/templates/conf source ./sources/poky/oe-init-build-env
+3. add linux-autot_0.1.bb to include linux-raspberrypi_6.1.bb
+   need to copy meta-raspberrypi/recipes-kernel/linux/files folder to meta-autot/recipes-kernel/linux
+4. add autot-image-base.bb to inherit core-image and require core-image-base.bb
+
+build image autot-image-base
+1. cd ~/work/yocto/
+2. ./initenv.sh
+3. cd build
+4. bitbake -k autot-image-base
+Notes: copy local.conf and bblayer.conf if changed to sources/autot/conf/template/conf/local.conf.sample and bblayers.conf.sample for version control
+
+
+
