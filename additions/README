@@ -27,10 +27,11 @@ TEMPLATECONF=../meta-autot/conf/templates/conf source ./sources/poky/oe-init-bui
 
 build image autot-image-base
 1. cd ~/work/yocto/
-2. ./initenv.sh
-3. cd build
-4. bitbake -k autot-image-base
+2. source ./initenv.sh
+   It doesn't work to just execute the shell script as it will run under a new shell environment.
+3. bitbake -k autot-image-base
 Notes: copy local.conf and bblayer.conf if changed to sources/autot/conf/template/conf/local.conf.sample and bblayers.conf.sample for version control
-
-
+4. ./getwic.sh
+   unzip the final Linux image .bz2
+5. install balenaEtcher to program Linux image
 
