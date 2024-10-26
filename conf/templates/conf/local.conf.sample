@@ -37,9 +37,11 @@
 # This sets the default machine to be qemux86-64 if no other machine is selected:
 #MACHINE ??= "qemux86-64"
 
-MACHINE ??= "raspberrypi5"
+#MACHINE ??= "raspberrypi5"
+MACHINE ??= "autot-raspberrypi5"
+
 PREFERRED_PROVIDER_virtual/kernel = "linux-autot"
-PREFERRED_VERSION_linux-test = "6.1.%"
+PREFERRED_VERSION_linux-autot = "6.1.%"
 
 # As it slows down build and increse image size, only do it for release version
 #INHERIT += "buildhistory"
@@ -52,8 +54,9 @@ PREFERRED_VERSION_linux-test = "6.1.%"
 LICENSE_FLAGS_ACCEPTED = "synaptics-killswitch"
 
 # specify the thread number to reduce RAM usage
-BB_NUMBER_THREADS = "2"
-PARALLEL_MAKE = "-j2"
+#BB_NUMBER_THREADS = "2"
+#PARALLEL_MAKE = "-j2"
+#PARALLEL_MAKE = ""
 
 #
 # Where to place downloads
