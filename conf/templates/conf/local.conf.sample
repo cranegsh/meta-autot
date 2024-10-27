@@ -58,6 +58,14 @@ LICENSE_FLAGS_ACCEPTED = "synaptics-killswitch"
 #PARALLEL_MAKE = "-j2"
 #PARALLEL_MAKE = ""
 
+# add systemd
+DISTRO_FEATURES:append = " usrmerge"
+DISTRO_FEATURES:append = " systemd"
+#DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
+VIRTUAL-RUNTIME_init_manager = "systemd"
+#VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
+IMAGE_INSTALL:append = " systemd"
+
 #
 # Where to place downloads
 #
@@ -237,9 +245,9 @@ BB_DISKMON_DIRS ??= "\
 # NOTE: if the mirror uses the same structure as SSTATE_DIR, you need to add PATH
 # at the end as shown in the examples below. This will be substituted with the
 # correct path within the directory structure.
-SSTATE_MIRRORS ?= "\
-file://.* https://someserver.tld/share/sstate/PATH;downloadfilename=PATH \
-file://.* file:///some/local/dir/sstate/PATH"
+#SSTATE_MIRRORS ?= "\
+#file://.* https://someserver.tld/share/sstate/PATH;downloadfilename=PATH \
+#file://.* file:///some/local/dir/sstate/PATH"
 
 #
 # Yocto Project SState Mirror
@@ -252,7 +260,7 @@ file://.* file:///some/local/dir/sstate/PATH"
 # which will depend on your network.
 # Note: For this to work you also need hash-equivalence passthrough to the matching server
 #
-BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
+#BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
 SSTATE_MIRRORS ?= "file://.* http://sstate.yoctoproject.org/all/PATH;downloadfilename=PATH"
 
 #
@@ -281,6 +289,7 @@ PACKAGECONFIG:append:pn-qemu-system-native = " sdl"
 # A shared hash equivalent server can be set with "<HOSTNAME>:<PORT>" format
 #
 BB_HASHSERVE = "auto"
+BB_HASHSERVE_UPSTREAM = "hashserv.yocto.io:8687"
 BB_SIGNATURE_HANDLER = "OEEquivHash"
 
 #
