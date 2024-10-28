@@ -1,0 +1,1 @@
+PACKAGECINFIG:append = " networkd resolved"

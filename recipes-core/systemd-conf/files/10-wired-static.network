@@ -1,0 +1,10 @@
+# This file is to config network
+# The target location of this file is /etc/systemd/network/
+
+[Match]
+Name=eth0
+
+[Network]
+Address=192.168.0.77/24
+Gateway=192.168.0.1
+DNS=8.8.8.8 8.8.4.4
