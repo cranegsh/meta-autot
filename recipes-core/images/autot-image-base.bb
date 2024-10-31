@@ -12,11 +12,13 @@ update_rootfs() {
 #    install -m 0644 ${THISDIR}/files/10-wired-static.network ${IMAGE_ROOTFS}/etc/systemd/network/
     sed '/^PATH=/a [ "$HOME" != "/home/crane" ] || PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin' -i ${IMAGE_ROOTFS}/etc/profile
     sed '/^PATH=/a #add /sbin to $PATH for the user crane' -i ${IMAGE_ROOTFS}/etc/profile
+    echo "crane ALL=(ALL:ALL) ALL" >> ${IMAGE_ROOTFS}/etc/sudoers
+    echo "autot ALL=(ALL:ALL) ALL" >> ${IMAGE_ROOTFS}/etc/sudoers
 }
 ROOTFS_POSTPROCESS_COMMAND:append = " update_rootfs"
 
 # add a custom recipe
-IMAGE_INSTALL:append = " systemd-conf"
+IMAGE_INSTALL:append = " systemd-conf autot-service"
 
 # add a service
 IMAGE_INSTALL:append = " openssh"

@@ -6,5 +6,5 @@ Name=eth0
 
 [Network]
 Address=192.168.0.77/24
-#Gateway=192.168.0.1
-#DNS=8.8.8.8 8.8.4.4
+Gateway=192.168.0.1
+DNS=8.8.8.8 8.8.4.4

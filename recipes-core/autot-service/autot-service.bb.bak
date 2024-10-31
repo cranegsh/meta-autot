@@ -1,0 +1,17 @@
+#FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+
+DESCRIPTION = "Autot custom services"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://${WORKDIR}/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+
+SRC_URI = " \
+    file://COPYING.MIT \
+"
+
+do_install() {
+}
+
+SYSTEM_AUTO_ENABLE = "enable"
+

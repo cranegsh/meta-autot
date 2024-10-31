@@ -1,0 +1,15 @@
+[Unit]
+Description=Auto-connect to WiFi using wpa_supplicant
+#After=multi-user.target
+#Wants=network.target
+#After=network.target
+After=disable-wifi-powersave.service
+Requires=disable-wifi-powersave.service
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant_wifi.conf
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
