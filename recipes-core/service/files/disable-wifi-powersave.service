@@ -2,7 +2,7 @@
 Description=Disable WiFi power save mode
 
 [Service]
-type=oneshot
+Type=oneshot
 ExecStart=/usr/sbin/iw dev wlan0 set power_save off
 
 [Install]

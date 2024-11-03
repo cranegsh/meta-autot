@@ -47,3 +47,7 @@ IMAGE_INSTALL:append = " openssh"
 
 # add commands
 IMAGE_INSTALL:append = " sudo"
+
+# add packagegroup
+#IMAGE_INSTALL:append = " systemd-boot systemd-analyze"
+IMAGE_INSTALL:append = " autot-packagegroup"
