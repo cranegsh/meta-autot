@@ -40,14 +40,44 @@ ROOTFS_POSTPROCESS_COMMAND:append = " do_update_rootfs"
 addtask do_update_rootfs after do_rootfs before do_image
 
 # add custom recipes
-IMAGE_INSTALL:append = " systemd-conf autot-service"
+IMAGE_INSTALL += " systemd-conf autot-service"
 
 # add services
-IMAGE_INSTALL:append = " openssh"
+IMAGE_INSTALL += " openssh"
 
 # add commands
-IMAGE_INSTALL:append = " sudo"
+#IMAGE_INSTALL += " sudo strace apt dpkg"
+IMAGE_INSTALL += " sudo strace"
 
 # add packagegroup
-#IMAGE_INSTALL:append = " systemd-boot systemd-analyze"
-IMAGE_INSTALL:append = " autot-packagegroup"
+#IMAGE_INSTALL += " systemd-boot systemd-analyze"
+IMAGE_INSTALL += " autot-packagegroup"
+
+# add kernel headers for kernel module development
+#IMAGE_INSTALL += " linux-libc-headers kernel-dev kernel-devsrc"
+#IMAGE_INSTALL += "  kernel-dev kernel-devsrc kernel-modules"
+
+# add tools for user app development separately
+#IMAGE_INSTALL += " gcc g++ make gdb"
+# add tools collectively. The recipe for tools-sdk image feature is packagegroup-core-sdk.bb
+EXTRA_IMAGE_FEATURES += " tools-sdk"
+
+# add library for development of user app development separately
+#IMAGE_INSTALL += " libpopt-dev"	# use popt-dev instead of libpopt-dev
+IMAGE_INSTALL += " popt-dev"
+# add lib-dev collectively.
+#EXTRA_IMAGE_FEATURES += " dev-pkgs"
+
+# add lib-dev and toolchain for both kernel moduele and user app devlopment in a custom recipe
+IMAGE_INSTALL += " autot-devtools"
+
+# enable package management
+# not good for Yocto customized Linux images to install packages, instead do it in Yocto
+#PACKAGE_CLASSES ?= "package_ipk"
+#EXTRA_IMAGE_FEATURES += " package-management"
+
+# change information in /etc/os-release
+# must use "=" to make the assignment effective
+DISTRO_NAME = "Autot OS Poky-based"
+DISTRO_VERSION = "0.1"
+# Although value assigned ok, but not present in /etc/os-release

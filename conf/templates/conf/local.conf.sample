@@ -41,7 +41,7 @@
 MACHINE ??= "autot-raspberrypi5"
 
 PREFERRED_PROVIDER_virtual/kernel = "linux-autot"
-PREFERRED_VERSION_linux-autot = "6.1.%"
+PREFERRED_VERSION_linux-autot = "1:6.1.77+git"
 
 # As it slows down build and increse image size, only do it for release version
 #INHERIT += "buildhistory"
@@ -61,11 +61,24 @@ LICENSE_FLAGS_ACCEPTED = "synaptics-killswitch"
 # add systemd
 DISTRO_FEATURES:append = " usrmerge"
 DISTRO_FEATURES:append = " systemd"
-#DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
 VIRTUAL-RUNTIME_init_manager = "systemd"
+DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
 #VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
 VIRTUAL-RUNTIME_initscripts = ""
 IMAGE_INSTALL:append = " systemd"
+
+# enable package management
+# not good for Yocto customized Linux images to install packages, instead do it in Yocto
+# PACKAGE_CLASSES must be added in conf/local.conf
+PACKAGE_CLASSES ?= "package_ipk"
+EXTRA_IMAGE_FEATURES:append = " package-management"
+
+# install SDK for user application. The recipe for tools-sdk image feature is packagegroup-core-sdk.bb
+#EXTRA_IMAGE_FEATURES:append = " tools-sdk"
+
+# change information in /etc/os-release
+# this could cause many component to be rebuilt!!! Instead, add the contents in image recipe.
+#DISTRO = "autot-distro"
 
 #
 # Where to place downloads

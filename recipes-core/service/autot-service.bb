@@ -7,6 +7,7 @@ LIC_FILES_CHKSUM = "file://${WORKDIR}/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4d
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 inherit systemd
+PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 SRC_URI = " \
     file://COPYING.MIT \
