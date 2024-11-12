@@ -8,18 +8,16 @@ LICENSE = "GPLv2"
 #LIC_FILES_CHKSUM = "../pcan-8.18.0/LICENSE.gpl;md5=75859989545e37968a99b631ef42722e"
 #LIC_FILES_CHKSUM = "${WORKDIR}/pcan-8.18.0/LICENSE.gpl;md5=75859989545e37968a99b631ef42722e"
 
-LIC_FILES_CHKSUM = "file://../pcan-driver/LICENSE.gpl;md5=75859989545e37968a99b631ef42722e"
+LIC_FILES_CHKSUM = "file://../pcan-8.18.0/LICENSE.gpl;md5=75859989545e37968a99b631ef42722e"
 
 inherit module
 
 # FILESEXTRAPATHS specifies the search path(s)
-#FILESEXTRAPATHS:prepend := "${THISDIR}/../../additions/prjsrc:"
-FILESEXTRAPATHS:prepend := "${THISDIR}/../../additions/prjsrc/pcan-8.18.0:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/../../additions/prjsrc:"
 
 # SRC_URI specifies the final names of the file or directory to be fetched from all search paths.
 # Here, "file://" is to tell Bitbake that the file or directory is local file/path.
-#SRC_URI = "file://pcan-8.18.0"
-SRC_URI = "file://pcan-driver"
+SRC_URI = "file://pcan-8.18.0"
 
 S = "${WORKDIR}/pcan-8.18.0"
 
