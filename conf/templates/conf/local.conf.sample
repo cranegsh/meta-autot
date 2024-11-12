@@ -67,15 +67,6 @@ DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
 VIRTUAL-RUNTIME_initscripts = ""
 IMAGE_INSTALL:append = " systemd"
 
-# enable package management
-# not good for Yocto customized Linux images to install packages, instead do it in Yocto
-# PACKAGE_CLASSES must be added in conf/local.conf
-PACKAGE_CLASSES ?= "package_ipk"
-EXTRA_IMAGE_FEATURES:append = " package-management"
-
-# install SDK for user application. The recipe for tools-sdk image feature is packagegroup-core-sdk.bb
-#EXTRA_IMAGE_FEATURES:append = " tools-sdk"
-
 # change information in /etc/os-release
 # this could cause many component to be rebuilt!!! Instead, add the contents in image recipe.
 #DISTRO = "autot-distro"
@@ -149,7 +140,8 @@ DISTRO ?= "poky"
 #  - 'package_rpm' for rpm style packages
 # E.g.: PACKAGE_CLASSES ?= "package_rpm package_deb package_ipk"
 # We default to rpm:
-PACKAGE_CLASSES ?= "package_rpm"
+#PACKAGE_CLASSES ?= "package_rpm"
+PACKAGE_CLASSES ?= "package_ipk"
 
 #
 # SDK target architecture

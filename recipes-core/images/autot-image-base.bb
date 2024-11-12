@@ -14,7 +14,6 @@ SRC_URI:append = " \
 
 # add files to rootfs or modify files in rootfs
 do_update_rootfs() {
-#    install -m 0644 ${THISDIR}/files/10-wired-static.network ${IMAGE_ROOTFS}/etc/systemd/network/
 #
 # add paths for user crane in /etc/profile
     sed '/^PATH=/a [ "$HOME" != "/home/crane" ] || PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin' -i ${IMAGE_ROOTFS}/etc/profile
@@ -50,31 +49,22 @@ IMAGE_INSTALL += " openssh"
 IMAGE_INSTALL += " sudo strace"
 
 # add packagegroup
-#IMAGE_INSTALL += " systemd-boot systemd-analyze"
 IMAGE_INSTALL += " autot-packagegroup"
 
-# add kernel headers for kernel module development
-#IMAGE_INSTALL += " linux-libc-headers kernel-dev kernel-devsrc"
-#IMAGE_INSTALL += "  kernel-dev kernel-devsrc kernel-modules"
-
-# add tools for user app development separately
-#IMAGE_INSTALL += " gcc g++ make gdb"
 # add tools collectively. The recipe for tools-sdk image feature is packagegroup-core-sdk.bb
 EXTRA_IMAGE_FEATURES += " tools-sdk"
 
 # add library for development of user app development separately
 #IMAGE_INSTALL += " libpopt-dev"	# use popt-dev instead of libpopt-dev
 IMAGE_INSTALL += " popt-dev"
-# add lib-dev collectively.
-#EXTRA_IMAGE_FEATURES += " dev-pkgs"
 
 # add lib-dev and toolchain for both kernel moduele and user app devlopment in a custom recipe
 IMAGE_INSTALL += " autot-devtools"
 
 # enable package management
+#PACKAGE_CLASSES ?= "package_ipk"	# this must be in conf/local.conf
+EXTRA_IMAGE_FEATURES += " package-management"
 # not good for Yocto customized Linux images to install packages, instead do it in Yocto
-#PACKAGE_CLASSES ?= "package_ipk"
-#EXTRA_IMAGE_FEATURES += " package-management"
 
 # change information in /etc/os-release
 # must use "=" to make the assignment effective
