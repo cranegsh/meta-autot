@@ -1,0 +1,232 @@
+
+crane@Ubuntu220401:~/work/test/mod-hello$ . /opt/poky/0.1/environment-setup-cortexa76-poky-linux
+crane@Ubuntu220401:~/work/project/mod-spican3$ make
+make -C /opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build M=/home/crane/work/project/mod-spican3
+make[1]: Entering directory '/opt/poky/0.1/sysroots/cortexa76-poky-linux/usr/lib/modules/6.1.77-v8-16k/build'
+  CC [M]  /home/crane/work/project/mod-spican3/devspi.o
+In file included from ./include/linux/types.h:6,
+                 from ./include/linux/kasan-checks.h:5,
+                 from ./include/asm-generic/rwonce.h:26,
+                 from ./arch/arm64/include/asm/rwonce.h:71,
+                 from ./include/linux/compiler.h:246,
+                 from ./include/linux/init.h:5,
+                 from /home/crane/work/project/mod-spican3/devspi.c:1:
+./include/uapi/linux/types.h:5:10: fatal error: asm/types.h: No such file or directory
+    5 | #include <asm/types.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+make[2]: *** [scripts/Makefile.build:250: /home/crane/work/project/mod-spican3/devspi.o] Error 1
+make[1]: *** [Makefile:2014: /home/crane/work/project/mod-spican3] Error 2
+make[1]: Leaving directory '/opt/poky/0.1/sysroots/cortexa76-poky-linux/usr/lib/modules/6.1.77-v8-16k/build'
+make: *** [Makefile:11: all] Error 2
+crane@Ubuntu220401:~/work/project/mod-spican3$
+
+
+
+
+crane@Ubuntu220401:~/work/test/mod-hello$ cd /opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ sudo git init
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ git config --global --add safe.directory /opt/poky/0.1/sysroots/cortexa76-poky-linux/usr/lib/modules/6.1.77-v8-16k/build
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ sudo git add .
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ git commit -m "initial commit"
+
+
+
+
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ cd include/uapi/
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include/uapi$ ls
+asm-generic  drm  Kbuild  linux  misc  mtd  rdma  scsi  sound  video  xen
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include/uapi$ sudo ln -s asm-generic/ asm
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include/uapi$ ls -l
+total 68
+lrwxrwxrwx  1 root root    12 Nov 17 20:58 asm -> asm-generic/
+drwxr-xr-x  2 root root  4096 Nov 17 20:44 asm-generic
+drwxr-xr-x  2 root root  4096 Nov 17 20:44 drm
+-rw-r--r--  1 root root   469 Nov 17 20:44 Kbuild
+drwxr-xr-x 29 root root 24576 Nov 17 20:44 linux
+drwxr-xr-x  3 root root  4096 Nov 17 20:44 misc
+drwxr-xr-x  2 root root  4096 Nov 17 20:44 mtd
+drwxr-xr-x  3 root root  4096 Nov 17 20:44 rdma
+drwxr-xr-x  3 root root  4096 Nov 17 20:44 scsi
+drwxr-xr-x  4 root root  4096 Nov 17 20:44 sound
+drwxr-xr-x  2 root root  4096 Nov 17 20:44 video
+drwxr-xr-x  2 root root  4096 Nov 17 20:44 xen
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include/uapi$ cd ../
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include$ cd ../arch/arm64/tools/
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/tools$ ls
+cpucaps  gen-cpucaps.awk  gen-sysreg.awk  Makefile  sysreg
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/tools$ cd ../include/asm/
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/include/asm$ ls
+acenv.h               cpu_ops.h         jump_label.h       page-def.h            spinlock.h
+acpi.h                cputype.h         kasan.h            page.h                spinlock_types.h
+alternative.h         current.h         Kbuild             paravirt_api_clock.h  stack_pointer.h
+alternative-macros.h  daifflags.h       kernel-pgtable.h   paravirt.h            stackprotector.h
+apple_m1_pmu.h        dcc.h             kexec.h            patching.h            stacktrace
+arch_gicv3.h          debug-monitors.h  kfence.h           pci.h                 stacktrace.h
+archrandom.h          device.h          kgdb.h             percpu.h              stage2_pgtable.h
+arch_timer.h          dmi.h             kprobes.h          perf_event.h          stat.h
+arm-cci.h             efi.h             kvm_arm.h          pgalloc.h             string.h
+arm_dsu_pmu.h         el2_setup.h       kvm_asm.h          pgtable.h             suspend.h
+asm-bug.h             elf.h             kvm_emulate.h      pgtable-hwdef.h       sync_bitops.h
+asm-extable.h         esr.h             kvm_host.h         pgtable-prot.h        syscall.h
+asm-offsets.h         exception.h       kvm_hyp.h          pgtable-types.h       syscall_wrapper.h
+asm_pointer_auth.h    exec.h            kvm_mmu.h          pointer_auth.h        sysreg.h
+asm-prototypes.h      extable.h         kvm_mte.h          preempt.h             system_misc.h
+asm-uaccess.h         fb.h              kvm_pgtable.h      probes.h              thread_info.h
+assembler.h           fixmap.h          kvm_pkvm.h         processor.h           timex.h
+atomic.h              fpsimd.h          kvm_ptrauth.h      proc-fns.h            tlbflush.h
+atomic_ll_sc.h        fpsimdmacros.h    kvm_ras.h          ptdump.h              tlb.h
+atomic_lse.h          ftrace.h          kvm_types.h        ptrace.h              topology.h
+barrier.h             futex.h           linkage.h          pvclock-abi.h         trans_pgd.h
+bitops.h              gpr-num.h         lse.h              rwonce.h              traps.h
+bitrev.h              hardirq.h         memory.h           scs.h                 uaccess.h
+boot.h                hugetlb.h         mman.h             sdei.h                unistd32.h
+brk-imm.h             hw_breakpoint.h   mmu_context.h      seccomp.h             unistd.h
+bug.h                 hwcap.h           mmu.h              sections.h            uprobes.h
+cacheflush.h          hypervisor.h      mmzone.h           set_memory.h          vdso
+cache.h               hyperv-tlfs.h     module.h           setup.h               vdso.h
+checksum.h            hyp_image.h       module.lds.h       shmparam.h            vectors.h
+clocksource.h         image.h           mshyperv.h         signal32.h            vermagic.h
+cmpxchg.h             insn-def.h        mte-def.h          signal.h              virt.h
+compat.h              insn.h            mte.h              simd.h                vmalloc.h
+compiler.h            io.h              mte-kasan.h        smp.h                 vmap_stack.h
+cpufeature.h          irqflags.h        neon.h             smp_plat.h            word-at-a-time.h
+cpu.h                 irq.h             neon-intrinsics.h  sparsemem.h           xen
+cpuidle.h             irq_work.h        numa.h             spectre.h             xor.h
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/include/asm$ ls ../../../
+alpha  arm    csky     ia64     loongarch  microblaze  nios2     parisc   riscv  sh     um   xtensa
+arc    arm64  hexagon  Kconfig  m68k       mips        openrisc  powerpc  s390   sparc  x86
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/include/asm$ ls ../../../../
+arch    Documentation  init      Kconfig   mm              samples   System.map-6.1.77-v8-16k
+block   drivers        io_uring  kernel    Module.symvers  scripts   tools
+certs   fs             ipc       lib       net             security  usr
+crypto  include        Kbuild    Makefile  rust            sound     virt
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/include/asm$ sudo cp ~/work/yocto/build/tmp/work/autot_raspberrypi5-poky-linux/linux-autot/6.1.77+git/linux-autot-6.1.77+git/arch/arm64/include/generated/asm/cpucaps.h ./
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/include/asm$ ls cpucaps.h 
+cpucaps.h
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/include/asm$ sudo cp ~/work/yocto/build/tmp/work/autot_raspberrypi5-poky-linux/linux-autot/6.1.77+git/linux-autot-6.1.77+git/arch/arm64/include/generated/asm/sysreg-defs.h ./
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/include/asm$ ls -l sysreg-defs.h 
+-rw-r--r-- 1 root root 116420 Nov 17 21:09 sysreg-defs.h
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/include/asm$ cd ../../../../include/
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include$ ls
+acpi         config  dt-bindings  kunit  math-emu  misc    ras   scsi   target  ufs    xen
+asm-generic  crypto  generated    kvm    media     net     rdma  soc    trace   vdso
+clocksource  drm     keys         linux  memory    pcmcia  rv    sound  uapi    video
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include$ sudo ln -s asm-generic/ asm
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include$ ls
+acpi         clocksource  drm          keys   linux     memory  pcmcia  rv    sound   uapi  video
+asm          config       dt-bindings  kunit  math-emu  misc    ras     scsi  target  ufs   xen
+asm-generic  crypto       generated    kvm    media     net     rdma    soc   trace   vdso
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include$ cd uapi/
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include/uapi$ cd asm-generic/
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include/uapi/asm-generic$ ls
+auxvec.h          hugetlb_encode.h  Kbuild         poll.h         siginfo.h      stat.h             ucontext.h
+bitsperlong.h     int-l64.h         kvm_para.h     posix_types.h  signal-defs.h  swab.h             unistd.h
+bpf_perf_event.h  int-ll64.h        mman-common.h  resource.h     signal.h       termbits-common.h
+errno-base.h      ioctl.h           mman.h         sembuf.h       socket.h       termbits.h
+errno.h           ioctls.h          msgbuf.h       setup.h        sockios.h      termios.h
+fcntl.h           ipcbuf.h          param.h        shmbuf.h       statfs.h       types.h
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include/uapi/asm-generic$ sudo vi bitsperlong.h 
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include/uapi/asm-generic$ cat bitsperlong.h 
+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
+#ifndef _UAPI__ASM_GENERIC_BITS_PER_LONG
+#define _UAPI__ASM_GENERIC_BITS_PER_LONG
+
+/*
+ * There seems to be no way of detecting this automatically from user
+ * space, so 64 bit architectures should override this in their
+ * bitsperlong.h. In particular, an architecture that supports
+ * both 32 and 64 bit user space must not rely on CONFIG_64BIT
+ * to decide it, but rather check a compiler provided macro.
+ */
+#ifndef __BITS_PER_LONG
+//#define __BITS_PER_LONG 32
+#ifdef CONFIG_64BIT
+#define __BITS_PER_LONG 64
+#else
+#define __BITS_PER_LONG 32
+#endif
+#endif
+
+#endif /* _UAPI__ASM_GENERIC_BITS_PER_LONG */
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/include/uapi/asm-generic$ cd ../../../scripts/basic/
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/scripts/basic$ sudo cp ~/work/yocto/build/tmp/work/autot_raspberrypi5-poky-linux/linux-autot/6.1.77+git/linux-autot-6.1.77+git/scripts/basic/fixdep ./
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/scripts/basic$ ls
+fixdep  fixdep.c  Makefile
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/scripts/basic$ cd ../mod/
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/scripts/mod$ sudo cp ~/work/yocto/build/tmp/work/autot_raspberrypi5-poky-linux/linux-autot/6.1.77+git/linux-autot-6.1.77+git/scripts/mod/modpost ./
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/scripts/mod$ ls -l modpost
+-rwxr-xr-x 1 root root 88168 Nov 17 21:20 modpost
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/scripts/mod$ cd ../../../
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k$ cd build/
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   include/uapi/asm-generic/bitsperlong.h
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	arch/arm64/include/asm/cpucaps.h
+	arch/arm64/include/asm/sysreg-defs.h
+	include/asm
+	include/uapi/asm
+
+no changes added to commit (use "git add" and/or "git commit -a")
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ git diff
+diff --git a/include/uapi/asm-generic/bitsperlong.h b/include/uapi/asm-generic/bitsperlong.h
+index 693d9a4..2e8a9d3 100644
+--- a/include/uapi/asm-generic/bitsperlong.h
++++ b/include/uapi/asm-generic/bitsperlong.h
+@@ -10,7 +10,12 @@
+  * to decide it, but rather check a compiler provided macro.
+  */
+ #ifndef __BITS_PER_LONG
++//#define __BITS_PER_LONG 32
++#ifdef CONFIG_64BIT
++#define __BITS_PER_LONG 64
++#else
+ #define __BITS_PER_LONG 32
+ #endif
++#endif
+ 
+ #endif /* _UAPI__ASM_GENERIC_BITS_PER_LONG */
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ 
+
+
+
+crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ cd ~/work/test/mod-hello/
+crane@Ubuntu220401:~/work/test/mod-hello$ ls
+log.make  Makefile  Makefile.arm  Makefile.bak  Makefile.x86  mod-hello.c
+crane@Ubuntu220401:~/work/test/mod-hello$ echo $ARCH
+arm64
+crane@Ubuntu220401:~/work/test/mod-hello$ make
+echo "CFLAGS =  -O2 -pipe -g -feliminate-unused-debug-types "
+CFLAGS =  -O2 -pipe -g -feliminate-unused-debug-types 
+echo "EXTRA_CFLAGS = "
+EXTRA_CFLAGS = 
+make -C /opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/ M=/home/crane/work/test/mod-hello ARCH=arm64 CROSS_COMPILE=aarch64-poky-linux- modules
+make[1]: Entering directory '/opt/poky/0.1/sysroots/cortexa76-poky-linux/usr/lib/modules/6.1.77-v8-16k/build'
+  CC [M]  /home/crane/work/test/mod-hello/mod-hello.o
+  MODPOST /home/crane/work/test/mod-hello/Module.symvers
+  CC [M]  /home/crane/work/test/mod-hello/mod-hello.mod.o
+  LD [M]  /home/crane/work/test/mod-hello/mod-hello.ko
+make[1]: Leaving directory '/opt/poky/0.1/sysroots/cortexa76-poky-linux/usr/lib/modules/6.1.77-v8-16k/build'
+crane@Ubuntu220401:~/work/test/mod-hello$ ls -l
+total 68
+-rw-rw-r-- 1 crane crane 19686 Nov 14 12:56 log.make
+-rw-rw-r-- 1 crane crane   390 Nov 14 13:31 Makefile
+-rw-rw-r-- 1 crane crane   300 Nov 11 13:51 Makefile.arm
+-rw-rw-r-- 1 crane crane   388 Nov 14 12:54 Makefile.bak
+-rw-rw-r-- 1 crane crane   191 Nov 11 13:52 Makefile.x86
+-rw-rw-r-- 1 crane crane   388 Nov  9 16:05 mod-hello.c
+-rw-rw-r-- 1 crane crane  5680 Nov 17 21:24 mod-hello.ko
+-rw-rw-r-- 1 crane crane    44 Nov 17 21:24 mod-hello.mod
+-rw-rw-r-- 1 crane crane   822 Nov 17 21:24 mod-hello.mod.c
+-rw-rw-r-- 1 crane crane  3224 Nov 17 21:24 mod-hello.mod.o
+-rw-rw-r-- 1 crane crane  3184 Nov 17 21:24 mod-hello.o
+-rw-rw-r-- 1 crane crane    45 Nov 17 21:24 modules.order
+-rw-rw-r-- 1 crane crane     0 Nov 17 21:24 Module.symvers
+crane@Ubuntu220401:~/work/test/mod-hello$ 
+

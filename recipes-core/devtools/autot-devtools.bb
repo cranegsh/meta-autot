@@ -2,12 +2,16 @@ SUMMARY = "Autot development tools package"
 DESCRIPTION = "A package containing essential development tools including kernel headers, gcc, etc."
 LICENSE = "CLOSED"
 
+# This assignment needs to be put before "inherit packagegroup"
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+
 # Without below line, bitbake "Unable to fine a match: autot-devtools" when building the image
 # while it works fine to build autot-devtools separately
 inherit packagegroup
+
 # Below line is to override PACKAGE_ARCH whose value is overridden by "inherit packagegroup" to "all"
 # But it doesn't work to change it here. Effective putting in conf/local.conf, but can't!
-PACKAGE_ARCH = "${MACHINE_ARCH}"
+#PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 # for kernel moduel development
 RDEPENDS:${PN} = " \

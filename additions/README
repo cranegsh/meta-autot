@@ -43,11 +43,15 @@ Create SDK
 3. source /opt/poky/0.1/environment-setup-cortexa76-poky-linux
 4. build the program as on the native machine (kernel modules, application and libraries)
 5. manual fix to address the issues when cross building kernel modules on host machine
+   0) enter SDK kernel headers directory
+      cd /opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/
    a) include/uapi$ sudo ln -s asm-generic/ asm
    b) arch/arm64/tools$ sudo awk -f gen-cpucaps.awk cpucaps > cpucaps.h
       arch/arm64/tools$ sudo cp cpucaps.h /lib/modules/6.1.77-v8-16k/build/arch/arm64/include/asm
+      or copy from build/tmp/work/<arch>-poky-linux/<linux>/<ver>/<linux>-<ver>/arch/arm64/include/generated/asm/
    c) arch/arm64/tools$ sudo awk -f gen-sysreg.awk sysreg > sysreg-defs.h
       arch/arm64/tools$ sudo cp sysreg-defs.h /lib/modules/6.1.77-v8-16k/build/arch/arm64/include/asm
+      or copy from build/tmp/work/<arch>-poky-linux/<linux>/<ver>/<linux>-<ver>/arch/arm64/include/generated/asm/
    d) include$ sudo ln -s asm-generic/ asm
    e) include/uapi/asm-generic$ sudo vi bitsperlong.h
       #ifdef CONFIG_64BIT
@@ -56,7 +60,9 @@ Create SDK
       #define __BITS_PER_LONG 32
       #endif
    f) scripts/basic$ sudo cp /opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/scripts/basic/fixdep ./
+      The file fixdep should be from build/tmp/work/<arch>-poky-linux/<linux>/<ver>/<linux>-<ver>/scripts/basic/
    g) scripts/mod$ sudo cp /opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/scripts/mod/modpost ./
+      The file modpost should be from build/tmp/work/<arch>-poky-linux/<linux>/<ver>/<linux>-<ver>/scripts/modpost/
 6. The fix doesn't work on the kernel headers on the target
    -> fixdep and modpost are built on the host and couldn’t run on the target.
 
