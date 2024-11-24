@@ -1,0 +1,67 @@
+Install PCAN tester application manually
+
+1. insert module
+crane@autot-raspberrypi5:~$ sudo insmod deploy-rpi/pcan.ko
+Password:
+crane@autot-raspberrypi5:~$ sudo lsmod | grep pcan
+pcan                  212992  0
+
+2. copy libraries
+crane@autot-raspberrypi5:~$ sudo cp -P deploy-rpi-64/lib/* /lib64/
+crane@autot-raspberrypi5:~$ ls -l /lib64/libpcan*
+lrwxrwxrwx    1 root     root            12 Nov 22 19:21 /lib64/libpcan.so -> libpcan.so.6
+-rwxr-xr-x    1 root     root         90312 Nov 22 19:21 /lib64/libpcan.so.6
+lrwxrwxrwx    1 root     root            21 Nov 22 19:21 /lib64/libpcanbasic.so -> libpcanbasic.so.4.8.0
+lrwxrwxrwx    1 root     root            21 Nov 22 19:21 /lib64/libpcanbasic.so.4 -> libpcanbasic.so.4.8.0
+-rwxr-xr-x    1 root     root        170368 Nov 22 19:21 /lib64/libpcanbasic.so.4.8.0
+-rw-r--r--    1 root     root         94470 Nov 22 19:21 /lib64/libpcanfd.a
+lrwxrwxrwx    1 root     root            14 Nov 22 19:21 /lib64/libpcanfd.so -> libpcanfd.so.8
+-rwxr-xr-x    1 root     root        114536 Nov 22 19:21 /lib64/libpcanfd.so.8
+
+3. copy headers
+crane@autot-raspberrypi5:~$ sudo cp deploy-rpi-64/include/* /usr/include/
+crane@autot-raspberrypi5:~$ ls -l /usr/include/
+-rw-r-----    1 root     root         34759 Nov 22 19:23 PCANBasic.h
+-rw-r-----    1 root     root          9085 Nov 22 19:23 libpcan.h
+-rw-r-----    1 root     root         21639 Nov 22 19:23 libpcanfd.h
+
+4. install tools
+crane@autot-raspberrypi5:~$ sudo cp deploy-rpi-64/tools/pcaninfo* -P /usr/bin
+crane@autot-raspberrypi5:~$ ls /usr/bin/pcan* -l
+lrwxrwxrwx    1 root     root            14 Nov 22 19:30 /usr/bin/pcaninfo -> pcaninfo.1.3.2
+-rwxr-xr-x    1 root     root        184944 Nov 22 19:30 /usr/bin/pcaninfo.1.3.2
+crane@autot-raspberrypi5:~$
+
+5. install application
+crane@autot-raspberrypi5:~$ sudo cp pcantester/farviewpcan /usr/bin
+crane@autot-raspberrypi5:~$ ls -l /usr/bin/farviewpcan
+-rwxr-xr-x    1 root     root         81512 Nov 22 19:33 /usr/bin/farviewpcan
+crane@autot-raspberrypi5:~$
+
+
+=========================================================
+
+generate PCAN driver, libraries, tools and user applications from PCAN package
+make PCC=NO PCI=NO ISA=NO DNG=NO
+
+collect required files as below
+.
+├── include
+│   ├── libpcanfd.h
+│   ├── libpcan.h
+│   └── PCANBasic.h
+├── lib
+│   ├── libpcanbasic.so -> libpcanbasic.so.4.8.0
+│   ├── libpcanbasic.so.4 -> libpcanbasic.so.4.8.0
+│   ├── libpcanbasic.so.4.8.0
+│   ├── libpcanfd.a
+│   ├── libpcanfd.so -> libpcanfd.so.8
+│   ├── libpcanfd.so.8
+│   ├── libpcan.so -> libpcan.so.6
+│   └── libpcan.so.6
+├── pcan.ko
+└── tools
+    ├── pcaninfo -> pcaninfo.1.3.2
+    ├── pcaninfo.1.3.2
+    └── readme.pcaninfo
+

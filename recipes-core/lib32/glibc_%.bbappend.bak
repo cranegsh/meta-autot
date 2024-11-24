@@ -1,0 +1,6 @@
+#FILES_lib32-glibc += "/usr/lib32/*"		# old syntax
+FILES:${PN} += "/usr/lib32/*"
+
+SYSROOT_DIRS += " /usr/lib32"
+#TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}/usr/lib"
+TARGET_LDFLAGS += " -L{RECIPE_SYSROOT}${libdir}"

@@ -1,0 +1,22 @@
+#FILES_lib32-glibc += "/usr/lib32/*"		# old syntax
+#FILES:${PN} += "/usr/lib32/*"			# moved to below conditional assignment
+FILES:${PN} += "/usr/lib32/*"
+# keep FILES assignment line here to avoid error about packaging /etc/ld.so.conf
+
+#SYSROOT_DIRS:append = " /usr/lib32"		# no need when libdir is changed from /usr/lib to /usr/lib32
+#TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}/usr/lib"
+
+# Apply the override based on multilib variant
+python __anonymous() {
+    if "armv7a" in d.getVar('TUNE_FEATURES', True) and d.getVar('TARGET_ARCH') == "arm":
+        current_files = d.getVar('FILES:${PN}', True) or ""
+#        d.setVar('FILES:${PN}', current_files + "/usr/lib32/*")
+        d.setVar('libdir', '/usr/lib32')
+        d.setVar('base_libdir', '/usr/lib32')
+        d.setVar('nonarch_base_libdir', '/usr/lib32')
+        d.setVar('nonarch_libdir', '/usr/lib32')
+    else:
+        pass
+}
+
+TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}${libdir}"

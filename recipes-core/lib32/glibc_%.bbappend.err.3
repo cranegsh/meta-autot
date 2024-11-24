@@ -1,0 +1,16 @@
+#FILES_lib32-glibc += "/usr/lib32/*"
+FILES:{PN} += "/usr/lib32/*"
+
+#SYSROOT_DIRS:append = " /usr/lib32"		# no need when libdir is changed from /usr/lib to /usr/lib32
+#TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}/usr/lib"	# seem no need if nothing is appended to SYSROOT_DIRS
+
+# Apply the override based on multilib variant
+python __anonymous() {
+    if "armv7a" in d.getVar('TUNE_FEATURES', True):
+        d.setVar('libdir', '/usr/lib32')
+        d.setVar('base_libdir', '/usr/lib32')
+        d.setVar('nonarch_base_libdir', '/usr/lib32')
+        d.setVar('nonarch_libdir', '/usr/lib32')
+}
+
+TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}${libdir}"

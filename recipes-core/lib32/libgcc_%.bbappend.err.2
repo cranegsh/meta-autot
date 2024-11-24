@@ -1,0 +1,45 @@
+#FILES_lib32-libgcc += "/usr/lib32/*"	# this is the older syntax
+FILES:{PN} += "/usr/lib32/*"
+
+#DEPENDS += "lib32-glibc"	# add dependency recipe, but lib32-libc already exist
+#DEPENDS:{PN} += "lib32-glibc"	# still not working to add it
+
+#SYSROOT_DIRS:append = " /usr/lib32"	# not necessary as /usr/lib32 is already there (after changing libdir later from /usr/lib to /usr/lib32)
+#TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}/usr/lib"	# move to below and replace /usr/lib with ${libdir} as hardcode is not good for code reusability and modularity
+
+# Apply the override based on multilib variant
+python __anonymous() {
+    if "armv7a" in d.getVar('TUNE_FEATURES', True):
+        d.setVar('libdir', '/usr/lib32')
+        d.setVar('base_libdir', '/usr/lib32')
+        d.setVar('nonarch_base_libdir', '/usr/lib32')
+        d.setVar('nonarch_libdir', '/usr/lib32')
+}
+
+TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}${libdir}"
+
+
+#EXTRA_OEMAKE += " 'CFLAGS=--sysroot=${STAGING_DIR_TARGET}/usr/lib32'"		# should be the one from lib32-glibc
+EXTRA_OEMAKE += " 'CFLAGS=--sysroot=${WORKDIR}/../../lib32-glibc/2.39+git/image/usr/lib32'"
+#EXTRA_OEMAKE += " 'CFLAGS=-I${WORKDIR}/../../lib32-glibc/2.39+git/image'"	# not working
+
+#EXTRA_OEMAKE += " 'CFLAGS=--sysroot=${STAGING_DIR_TARGET}/usr/include'"	# doesn't work
+#EXTRA_OEMAKE += " 'CFLAGS=-I${STAGING_DIR_TARGET}/usr/include'"		# doesn't work
+#EXTRA_OEMAKE += " 'CFLAGS=-I${WORKDIR}/../../lib32-glibc/${PV}/image/usr/include'"	#doesn't work due to PV, and not recommended
+#EXTRA_OEMAKE += " 'CFLAGS=-I${WORKDIR}/../../lib32-glibc/2.39+git/image/usr/include'"	# not working, and even make searching /usr/lib32 not working
+
+#EXTRA_OEMAKE += " 'LDFLAGS=-L${STAGING_DIR_TARGET}/usr/lib32'"			# doesn't work
+#EXTRA_OEMAKE += " 'LDFLAGS=-L${WORKDIR}/../../lib32-glibc/${PV}/image/usr/lib32'"	# doesn't work due to PV, and it is not recommended
+#EXTRA_OEMAKE += " 'LDFLAGS=-L${WORKDIR}/../../lib32-glibc/2.39+git/image/usr/lib32'"	# seems not needed
+
+
+#EXTRA_OECONF += " --with-sysroot=${STAGING_DIR_TARGET}/usr/lib32"		# doesn't work
+#EXTRA_OECONF += " --with-headers=${STAGING_DIR_TARGET}/usr/include"		# doesn't work
+
+# remove "--disable-multilib" from EXTRA_OECONF		# not work, removed
+#EXTRA_OECONF:remove = "--disable-multilib"
+#python __anonymous () {
+#    conf = d.getVar("EXTRA_OECONF")
+#    if "--disable-multilib" in conf:
+#        d.setVar("EXTRA_OECONF", conf.replace("--disable-multilib", ""))
+#}

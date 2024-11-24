@@ -1,0 +1,24 @@
+#FILES_lib32-glibc += "/usr/lib32/*"
+FILES:{PN} += "/usr/lib32/*"
+
+SYSROOT_DIRS:append = " /usr/lib32"
+TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}/usr/lib"
+
+prefix = "/usr"
+
+do_install:append () {
+    # Verify if the append is actually appended
+    bbwarn "do_install:append is running ..."
+
+    # Verify the value of prefix in "bitbake -e <recipe> | tee build.log | grep "prefix is set as"
+    bbwarn "prefix is set as ${prefix}"
+
+    # Ensure the target directory exists
+    install -d ${D}${prefix}/lib32
+
+    # Move 32-bit libraries to /usr/lib32
+    if [ -d ${D}${prefix}/lib ]; then
+        mv ${D}${prefix}/lib/* ${D}${prefix}/lib32/ || true
+        rmdir ${D}${prefix}/lib || true
+    fi
+}

@@ -1,0 +1,36 @@
+# glibc_%.bbappend, ensure this is for lib32-glibc, not glibc
+# Apply the override based on multilib variant
+# To differentiate lib32-libgcc from libgcc, use a condition unique for lib32-libgcc
+python __anonymous() {
+    if "armv7a" in d.getVar('TUNE_FEATURES', True) and d.getVar('TARGET_ARCH') == "arm":
+        current_files = d.getVar('FILES:${PN}', True) or ""
+        d.setVar('FILES:${PN}', current_files + "/usr/lib32/*")
+        d.setVar('libdir', '/usr/lib32')
+        d.setVar('base_libdir', '/usr/lib32')
+        d.setVar('nonarch_base_libdir', '/usr/lib32')
+        d.setVar('nonarch_libdir', '/usr/lib32')
+#        d.setVar('EXTRA_OEMAKE', d.getVar('EXTRA_OEMAKE', True) + " 'CFLAGS=--sysroot=${WORKDIR}/../../lib32-glibc/2.39+git/image'")
+#        d.setVar('EXTRA_OEMAKE', d.getVar('EXTRA_OEMAKE', True) + " 'LDFLAGS=--sysroot=${WORKDIR}/../../lib32-glibc/2.39+git/image'")
+#        d.setVar('EXTRA_OECONF', d.getVar('EXTRA_OECONF', True) + " -enable-something-for-lib32")
+    else:
+        pass
+# adding "pass" here is just for safe code, kind of Misra C rule for if/else
+}
+# __anonymous is for one-time python function; otherwise use "python <function> () { ... }" 
+
+
+#FILES_lib32-libgcc += "/usr/lib32/*"	# this is the old syntax
+#FILES:${PN} += "/usr/lib32/*"		# moved up under condition assignment
+
+#DEPENDS += "lib32-glibc"		# add dependency, but lib32-libc already exist as virtual one fulfilled by lib32-glibc; and hard code is not recommended
+# lib32-libc and lib32-glibc are different but lib32-libc points to lib32-glibc here. It is the abstraction layer which implement's Yocto's modularity design. In other environments lib32-libc instead could be lib32-musl, lib32-uClibc, etc.
+# PREFERRED_PROVIDER_virtual/libc set to glibc, not musl
+
+#SYSROOT_DIRS:append = " /usr/lib32"	# not necessary as /usr/lib32 is already there (after changing libdir later from /usr/lib to /usr/lib32)
+#TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}/usr/lib"	# move to below and replace /usr/lib with ${libdir} as hardcode is not good for code reusability and modularity
+TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}${libdir}"
+
+
+#EXTRA_OEMAKE += " 'CFLAGS=--sysroot=${WORKDIR}/../../lib32-glibc/2.39+git/image'"	# moved up under conditional assignment
+#EXTRA_OEMAKE += " 'LDFLAGS=--sysroot=${WORKDIR}/../../lib32-glibc/2.39+git/image'"	# moved up under conditional assignment
+#EXTRA_OECONF += " -enable-something-for-lib32"						# moved up under conditional assignment

@@ -1,0 +1,6 @@
+#FILES_lib32-libgcc += "/usr/lib32/*"	# this is the old syntax
+FILES:${PN} += "/usr/lib32/*"
+
+SYSROOT_DIRS += " /usr/lib32"
+#TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}/usr/lib"	# move to below and replace /usr/lib with ${libdir} as hardcode is not good for code reusability and modularity
+TARGET_LDFLAGS += " -L{RECIPE_SYSROOT}${libdir}"
