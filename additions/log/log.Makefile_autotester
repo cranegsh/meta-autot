@@ -1,0 +1,18 @@
+17,20d16
+< CFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
+< #LDFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
+< CFLAGS += -D__ARM_PCS_VFP
+< 
+32,36c28
+< #	$(CC) $(CFLAGS) -c $< $(LIBS) -o $@
+< #	$(CC) $(CFLAGS) -c $< -o $@ $(LIBS)
+< #	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS)
+< #	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LDFLAGS) $(LIBS)
+< 	$(CC) $(CFLAGS) -c $< -o $@
+---
+> 	$(CC) $(CFLAGS) -c $< $(LIBS) -o $@
+39,40c31
+< #	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@ $^
+< 	$(CC) $(CFLAGS) -o $@  $^ $(LDFLAGS) $(LIBS)
+---
+> 	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBS) -o $@ $^

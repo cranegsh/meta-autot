@@ -71,6 +71,21 @@ IMAGE_INSTALL:append = " systemd"
 # this could cause many component to be rebuilt!!! Instead, add the contents in image recipe.
 #DISTRO = "autot-distro"
 
+# add kernel headers in SDK
+#TOOLCHAIN_TARGET_TASK:append = " kernel-dev kernel-devsrc kernel-modules"
+#TOOLCHAIN_HOST_TASK:append = " kernel-dev kernel-devsrc kernel-modules"
+
+# add multilib support in image
+require conf/multilib.conf
+MULTILIBS = "multilib:lib32"
+DEFAULTTUNE:virtclass-multilib-lib32 = "armv7athf"
+MULTILIB_GLOBAL_LIBS = "glibc libgcc libstdc++"
+IMAGE_INSTALL:append = " lib32-glibc lib32-libgcc lib32-libstdc++"
+
+# add multilib support in SDK
+#TOOLCHAIN_TARGET_TASK:append = " lib32-glibc lib32-libgcc lib32-libstdc++"
+#TOOLCHAIN_HOST_TASK:append = " lib32-glibc lib32-libgcc lib32-libstdc++"
+
 #
 # Where to place downloads
 #

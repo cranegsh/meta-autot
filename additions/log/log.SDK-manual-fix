@@ -28,6 +28,11 @@ crane@Ubuntu220401:~/work/test/mod-hello$ cd /opt/poky/0.1/sysroots/cortexa76-po
 crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ sudo git init
 crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ git config --global --add safe.directory /opt/poky/0.1/sysroots/cortexa76-poky-linux/usr/lib/modules/6.1.77-v8-16k/build
 crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ sudo git add .
+//////// below is different between two machines: one is root owner and works to commit while another has to be owned by root (not sure why)//////////
+crane@vmUbuntu2204:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ cd ../
+crane@vmUbuntu2204:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k$ sudo chown -R crane:crane ./build/
+crane@vmUbuntu2204:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ cd build/
+//////// above is different between two machines ///////
 crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ git commit -m "initial commit"
 
 
@@ -56,6 +61,10 @@ crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.7
 crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/tools$ ls
 cpucaps  gen-cpucaps.awk  gen-sysreg.awk  Makefile  sysreg
 crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/tools$ cd ../include/asm/
+
+crane@vmUbuntu2204:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ cp ~/work/yocto/build/tmp/work/autot_raspberrypi5-poky-linux/linux-autot/6.1.77+git/linux-autot-6.1.77+git/arch/arm64/include/generated/asm/cpucaps.h ./arch/arm64/include/asm
+crane@vmUbuntu2204:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build$ cp ~/work/yocto/build/tmp/work/autot_raspberrypi5-poky-linux/linux-autot/6.1.77+git/linux-autot-6.1.77+git/arch/arm64/include/generated/asm/sysreg-defs.h ./arch/arm64/include/asm
+
 crane@Ubuntu220401:/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build/arch/arm64/include/asm$ ls
 acenv.h               cpu_ops.h         jump_label.h       page-def.h            spinlock.h
 acpi.h                cputype.h         kasan.h            page.h                spinlock_types.h

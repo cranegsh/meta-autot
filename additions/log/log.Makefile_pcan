@@ -1,0 +1,131 @@
+diff --git a/driver/Makefile b/driver/Makefile
+index b74017c..b911933 100644
+--- a/driver/Makefile
++++ b/driver/Makefile
+@@ -113,7 +113,8 @@ endif
+ #
+ # please modify only here if your kernel path is elsewhere located
+ #
+-KERNEL_LOCATION = $(DKMS_KERNEL_DIR)
++#KERNEL_LOCATION = $(DKMS_KERNEL_DIR)
++KERNEL_LOCATION = /opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/modules/6.1.77-v8-16k/build
+ 
+ #
+ # probe various standard kernel locations
+diff --git a/lib/Makefile b/lib/Makefile
+index 0f34398..80d14e2 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -53,8 +53,11 @@ LSNAMEFD := $(basename $(LDNAMEFD)).a
+ # Xenomai 3 does *NOT* like -O2 with _wrappers_ (and gcc 4.8 ?)
+ #CFLAGS += -D$(RT) $(INC) -fPIC -shared -O2 -Wall $(RT_CFLAGS)
+ CFLAGS += -D$(RT) $(INC) -fPIC -Wall -Wcast-align -Wredundant-decls $(RT_CFLAGS)
++#CFLAGS += -L/opt/poky/0.1/sysroots/cortexa76-poky-linux/lib/ -I/opt/poky/0.1/sysroots/cortexa76-poky-linux/include
++CFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
+ 
+ LDFLAGS += $(RT_LDFLAGS)
++LDFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
+ 
+ ALL := $(LDNAME) $(TARGET) $(LDNAMEFD) $(TARGETFD) $(LSNAMEFD)
+ 
+@@ -95,6 +98,9 @@ all: banner $(foreach a,$(ALL),lib/$(a)) $(ALL32)
+ banner:
+ 	@echo "***"
+ 	@echo "*** Making pcan libraries"
++	@echo "GCC_32OPT = $(GCC_32OPT)"
++	@echo "CFLAGS = $(CFLAGS)"
++	@echo "ALL32 = $(ALL32)"
+ 	@echo "***"
+ 	@echo "*** $(CC) version: `$(CC) -dumpversion`"
+ 	@echo "***"
+diff --git a/libpcanbasic/examples/Makefile b/libpcanbasic/examples/Makefile
+index f46ebf1..df3d609 100644
+--- a/libpcanbasic/examples/Makefile
++++ b/libpcanbasic/examples/Makefile
+@@ -10,6 +10,9 @@
+ 
+ PATH_PCANBASIC_ROOT ?= $(shell cd ../pcanbasic; pwd)
+ 
++CFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++LDFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++
+ define do-make
+ @echo
+ @ echo "***"
+diff --git a/libpcanbasic/pcanbasic/Makefile b/libpcanbasic/pcanbasic/Makefile
+index 6579f9d..bc02489 100644
+--- a/libpcanbasic/pcanbasic/Makefile
++++ b/libpcanbasic/pcanbasic/Makefile
+@@ -60,6 +60,9 @@ PCAN_HEADER ?= /usr/include/pcan.h
+ 
+ ifneq ($(wildcard $(PCAN_HEADER)),)
+ 
++CFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++#LDFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++
+ $(warning Considering PCANBasic library WITHOUT FD support (PCAN driver < 8.0))
+ include Makefile_legacy.mk
+ 
+diff --git a/libpcanbasic/pcanbasic/Makefile_latest.mk b/libpcanbasic/pcanbasic/Makefile_latest.mk
+index 5dc8b61..04c5f42 100644
+--- a/libpcanbasic/pcanbasic/Makefile_latest.mk
++++ b/libpcanbasic/pcanbasic/Makefile_latest.mk
+@@ -121,6 +121,9 @@ LDFLAGS_CLEANUP_SO += -Xlinker --retain-symbols-file=$(SRC)/libpcanbasic.def
+ endif
+ LDFLAGS += -lm -lpthread $(RT_LDFLAGS) $(EXTRA_LDFLAGS) $(EXTRA_LIBS) $(LDFLAGS_CLEANUP_SO)
+ 
++CFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++LDFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++
+ ALL := $(TARGET_SHORT)
+ 
+ # multiarch compilation available only in non RT
+diff --git a/libpcanbasic/pcaninfo/Makefile b/libpcanbasic/pcaninfo/Makefile
+index 35e11a0..0558834 100644
+--- a/libpcanbasic/pcaninfo/Makefile
++++ b/libpcanbasic/pcaninfo/Makefile
+@@ -97,6 +97,9 @@ EXTRA_LDFLAGS     ?=
+ CFLAGS += -D$(RT) -I$(PCANBASIC_INC) -I$(PCANBASIC_SRC) $(LIBPCANFD_INC) $(RT_CFLAGS) $(EXTRA_CFLAGS)
+ LDFLAGS += -lm -lpthread -ldl $(RT_LDFLAGS) $(EXTRA_LDFLAGS) $(EXTRA_LIBS) 
+ 
++CFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++#LDFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++
+ # Installation directory
+ TARGET_DIR = $(DESTDIR)/usr/local/bin
+ 
+diff --git a/test/Makefile b/test/Makefile
+index f043245..135143e 100644
+--- a/test/Makefile
++++ b/test/Makefile
+@@ -19,7 +19,8 @@ FILTERTEST := filtertest
+ PCAN_SETTINGS := pcan-settings
+ PCANFDTST := pcanfdtst
+ 
+-ALL = $(RECEIVETEST) $(TRANSMITEST) $(BITRATETEST) $(FILTERTEST) $(PCANFDTST) $(PCAN_SETTINGS) $(RECEIVETEST_POSIX) $(TRANSMITEST_POSIX)
++#ALL = $(RECEIVETEST) $(TRANSMITEST) $(BITRATETEST) $(FILTERTEST) $(PCANFDTST) $(PCAN_SETTINGS) $(RECEIVETEST_POSIX) $(TRANSMITEST_POSIX)
++ALL = $(RECEIVETEST) $(TRANSMITEST) $(BITRATETEST) $(FILTERTEST) $(PCANFDTST) $(RECEIVETEST_POSIX) $(TRANSMITEST_POSIX)
+ 
+ # override default CC = cc
+ CC = $(CROSS_COMPILE)gcc
+@@ -163,6 +164,12 @@ endif
+ CXXFLAGS := $(subst -Wstrict-prototypes,,$(CFLAGS))
+ POSIX_CXXFLAGS := $(subst -Wstrict-prototypes,,$(POSIX_CFLAGS))
+ 
++CFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++POSIX_CFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++RTDM_CFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++POSIX_CXXFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++#LDFLAGS += --sysroot=/opt/poky/0.1/sysroots/cortexa76-poky-linux
++
+ all: banner $(ALL)
+ 
+ banner:
+@@ -170,6 +177,7 @@ banner:
+ 	@echo "*** Making example and test programs"
+ 	@echo "***"
+ 	@echo "*** $(CC) version: `$(CC) -dumpversion`"
++	@echo "*** CFLAGS = $(CFLAGS)"
+ 	@echo "***"
+ 
+ ifeq ($(RT), NO_RT)
