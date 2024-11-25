@@ -81,8 +81,6 @@ MULTILIBS = "multilib:lib32"
 DEFAULTTUNE:virtclass-multilib-lib32 = "armv7athf"
 MULTILIB_GLOBAL_LIBS = "glibc libgcc libstdc++"
 IMAGE_INSTALL:append = " lib32-glibc lib32-libgcc lib32-libstdc++"
-#SYSROOT_DIRS:append = " /usr/lib32"				# this line can be moved to parcitular recipe
-#TARGET_LDFLAGS:append = " -L{RECIPE_SYSROOT}/usr/lib32"	# this line should be in particular recipe
 
 # add multilib support in SDK
 TOOLCHAIN_TARGET_TASK:append = " lib32-glibc lib32-libgcc lib32-libstdc++"
