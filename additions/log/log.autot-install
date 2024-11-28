@@ -1,0 +1,36 @@
+# !/bin/bash
+
+# copy kernel module, libraries, headers and tools from the PCAN project folder to deploy folder
+cp driver/pcan.ko ../deploy-autotester-64
+cp driver/pcan*.h ../deploy-autotester-64/include/
+cp lib/libpcan*.h ../deploy-autotester-64/include/
+cp libpcanbasic/pcanbasic/include/PCANBasic.h ../deploy-autotester-64/include/
+cp lib/lib/* ../deploy-autotester-64/lib
+cp libpcanbasic/pcanbasic/lib/* ../deploy-autotester-64/lib
+cp libpcanbasic/pcaninfo/pcaninfo* ../deploy-autotester-64/tools
+
+
+# install pcan libraries and headers from deploy folder to SDK
+sudo cp lib/* /opt/poky/0.1/sysroots/cortexa76-poky-linux/lib64
+sudo cp include/* /opt/poky/0.1/sysroots/cortexa76-poky-linux/usr/include
+sudo chown crane:crane /opt/poky/0.1/sysroots/cortexa76-poky-linux/usr/include/pcan*.h
+sudo chown crane:crane /opt/poky/0.1/sysroots/cortexa76-poky-linux/usr/include/PCANBasic.h
+
+
+# copy the use app to deploy folder
+cp farviewpcan ../deploy-autotester-64
+
+
+# copy deploy folder from host machine to target
+./cp2pi.sh pcan.ko
+./cp2pi.sh lib
+./cp2pi.sh include
+./cp2pi.sh tools
+
+
+# install autotester on the target system from deploy folder
+sudo cp lib/* /lib64
+sudo cp include/* /usr/include
+sudo cp tools/pcaninfo* /usr/bin
+sudo cp farviewpcan /usr/bin
+sudo insmod pcan.ko
