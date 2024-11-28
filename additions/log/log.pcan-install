@@ -1,4 +1,5 @@
-Install PCAN tester application manually
+Install PCAN tester application manually 
+( pcantester is changed to autotester )
 
 1. insert module
 crane@autot-raspberrypi5:~$ sudo insmod deploy-rpi/pcan.ko
@@ -42,7 +43,18 @@ crane@autot-raspberrypi5:~$
 =========================================================
 
 generate PCAN driver, libraries, tools and user applications from PCAN package
-make PCC=NO PCI=NO ISA=NO DNG=NO
+        $ make -C driver clean
+        $ make -C lib clean
+        $ make -C test clean
+        $ make -C libpcanbasic clean
+        $ make -C driver all
+        $ make -C lib all
+        $ make -C test all
+        $ make -C libpcanbasic all
+	$ make clean
+	$ make
+	$ make PCC=NO PCI=NO ISA=NO DNG=NO
+
 
 collect required files as below
 .

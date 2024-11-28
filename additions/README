@@ -1,4 +1,9 @@
 
+Branches:
+1. master: common base for all other branchs used to build images with difference features
+2. develop: for images with multilib support of 32-bit binary for Armv7a
+3. develop-32: for images with 32-bit Linux system
+
 
 Get ready:
 1. get host Linux
