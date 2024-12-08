@@ -1,0 +1,35 @@
+SUMMARY = "Autot image libraries"
+DESCRIPTION = "Libraries for software package for device PCAN-USB Pro in autotester"
+LICENSE = "GPLv2"
+# Here, "file://" is to tell Bitbake that the path is a local path and it refers to ${S}!
+LIC_FILES_CHKSUM = "file://../pcan-8.18.0-lib/LICENSE.gpl;md5=75859989545e37968a99b631ef42722e"
+
+python do_display_banner() {
+    bb.plain("***********************************************");
+    bb.plain("*                                             *");
+    bb.plain("*  pcanlib created by Peak System Gmbh        *");
+    bb.plain("*                                             *");
+    bb.plain("***********************************************");
+}
+
+addtask display_banner before do_build
+
+# FILESEXTRAPATHS specifies the search path(s)
+FILESEXTRAPATHS:prepend := "${THISDIR}/../../additions/prjsrc:"
+
+# SRC_URI specifies the final names of the file or directory to be fetched from all search paths.
+# Here, "file://" is to tell Bitbake that the file or directory is local file/path.
+SRC_URI = "file://pcan-8.18.0-lib"
+
+S = "${WORKDIR}/pcan-8.18.0-lib"
+
+#EXTRA_OEMAKE = "CFLAGS=-I${STAGING_DIR_TARGET}/usr/include"
+#EXTRA_OEMAKE += "CFLAGS= -I${S}/lib"
+#EXTRA_OEMAKE = "CFLAGS='-I${STAGING_DIR_TARGET}/usr/include -I${S}/lib -I${S}/driver -DNO_RT'"
+#EXTRA_OEMAKE = "--sysroot=${STAGING_DIR_TARGET} CFLAGS='-I${STAGING_DIR_TARGET}/usr/include -I${S}/lib -I${S}/driver -DNO_RT'"
+#EXTRA_OEMAKE += "LDFLAGS='--sysroot=${STAGING_DIR_TARGET}/usr/lib'"
+EXTRA_OEMAKE = "LDFLAGS='--sysroot=${STAGING_DIR_TARGET}' CFLAGS='-I${STAGING_DIR_TARGET}/usr/include -I${S}/lib -I${S}/driver -I${S}/libpcanbasic/pcanbasic/include -DNO_RT'"
+do_compile() {
+	oe_runmake ARCH=${TARGET_ARCH} CROSS_COMPILE=${TARGET_PREFIX}
+}
+

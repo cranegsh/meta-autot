@@ -1,0 +1,59 @@
+SUMMARY = "Autot image main application"
+DESCRIPTION = "Main application for Autotester with libraries built with cross SDK separately"
+LICENSE = "CLOSED"
+
+python do_display_banner() {
+    bb.plain("***********************************************");
+    bb.plain("*                                             *");
+    bb.plain("*  farviewpcan application with libraries     *");
+    bb.plain("*                                             *");
+    bb.plain("***********************************************");
+}
+
+addtask display_banner before do_build
+
+FILESEXTRAPATHS:prepend := "${THISDIR}/../../additions/prjdeploy/:"
+
+SRC_URI = "file://farviewpcan"
+
+S = "${WORKDIR}/farviewpcan"
+
+# do_install is to add these files to recipe's destination folder ${D}
+do_install() {
+    install -d ${D}${libdir}
+#    install -m 0644 ${S}/lib/* ${D}${libdir}/
+# it doesn't work to copy shared libraries .so together with symbolic link files
+# either select hard link .so files to install
+# or leave only hard link .so files in the source folder and then copy all together
+    install -m 0644 ${S}/lib/libpcan.so.6 ${D}${libdir}/
+#    ln -sf libpcan.so.6 ${D}${libdir}/libpcan.so
+#    install -m 0644 ${S}/lib/libpcanfd.a ${D}${libdir}/
+    install -m 0644 ${S}/README ${D}${libdir}/
+    install -m 0644 ${S}/lib/testfile ${D}${libdir}/
+
+    install -d ${D}${includedir}
+    install -m 0644 ${S}/include/* ${D}${includedir}/
+}
+
+# Define the order of packages explicitly
+PACKAGES = "${PN} ${PN}-dev ${PN}-staticdev ${PN}-dbg ${PN}-doc ${PN}-locale ${PN}-src"
+
+# add file to FILES so that they are shipped to final image rootfs
+# files that are shipped to the main(runtime) package: runtime libraries
+FILES:${PN} += " \
+    ${libdir}/libpcan.so.6 \
+    ${libdir}/README \
+    ${libdir}/testfile \
+"
+# files that are shipped to the development package: development libraries, headers, symlinks
+FILES:${PN}-dev += " \
+    ${includedir}/*.h \
+"
+# files that are shipped to the static development package: static development libraries
+#FILES:${PN}-staticdev += " \
+#    ${libdir}/libpcanfd.a \
+#"
+# image recipe: IMAGE_INSTALL += " farviewpcan farviewpcan-dev farviewpcan-staticdev"
+
+# Ensure `-dev` depends on the runtime package
+#RDEPENDS:${PN}-dev += "${PN}"

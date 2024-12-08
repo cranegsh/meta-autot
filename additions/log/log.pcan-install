@@ -56,7 +56,13 @@ generate PCAN driver, libraries, tools and user applications from PCAN package
 	$ make PCC=NO PCI=NO ISA=NO DNG=NO
 
 
-collect required files as below
+collect required files as below and copy them to the target system
+scp driver/pcan*.h crane@192.168.0.77:/home/crane/deploy/include
+scp lib/libpcan*.h crane@192.168.0.77:/home/crane/deploy/include
+scp libpcanbasic/pcanbasic/include/PCANBasic.h crane@192.168.0.77:/home/crane/deploy/include
+scp driver/pcan.ko crane@192.168.0.77:/home/crane/deploy
+scp lib/lib/* crane@192.168.0.77:/home/crane/deploy/lib
+scp libpcanbasic/pcanbasic/lib/* crane@192.168.0.77:/home/crane/deploy/lib
 .
 ├── include
 │   ├── libpcanfd.h

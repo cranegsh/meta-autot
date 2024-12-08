@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: LGPL-2.1-only
+#
+# Makefile - global Makefile for all components
+#
+# Copyright (C) 2001-2020 PEAK System-Technik GmbH <www.peak-system.com>
+#
+# Contact:       <linux@peak-system.com>
+# Maintainer:    Stephane Grosjean <s.grosjean@peak-system.com>
+# Contributions: Klaus Hitschler <klaus.hitschler@gmx.de>
+#                Pablo Yanez Trujillo <yanez@pse.de> cross-compile
+#
+
+# CROSS-COMPILING SETTINGS
+#
+# You need a cross-compiler. You can build one with crosstool
+# http://www.kegel.com/crosstool/current/doc/crosstool-howto.html
+#
+# These variables work with the toolchains created by crosstool
+
+# defines the architecture. For example 'arm' for an ARM system
+#export ARCH=arm
+
+# the path and prefix of the cross-compiler
+#export CROSS_COMPILE=/home/yanez/matrix500/arm-9tdmi-linux-gnu/bin/arm-9tdmi-linux-gnu-
+
+all:
+	@$(MAKE) -C driver $1
+
+clean:
+	@$(MAKE) -C driver clean
+
+modules_install:
+	@$(MAKE) -C $(KERNEL_LOCATION) M=$(shell pwd)/driver modules_install
+
+# make command options:
+# -C: tell make to switch directory
+# M=: tell make where to find the source
+#     when compiling kernel module, source is the source code
+#     when installing kernel module, source is the kernel module
+# make command syntax:
+# The indentation must be tab, not space
+# When copying and pasting, the tab becomes 8 spaces, which will cause the error of "missing separator".
+# make: hardcode for simple project or test
+# $(MAKE): portale for big project
+# @$(MAKE): silent in terminal output

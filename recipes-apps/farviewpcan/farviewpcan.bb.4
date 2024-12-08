@@ -1,0 +1,80 @@
+SUMMARY = "Autot image main application"
+DESCRIPTION = "Main application for Autotester with libraries built with cross SDK separately"
+LICENSE = "CLOSED"
+
+python do_display_banner() {
+    bb.plain("***********************************************");
+    bb.plain("*                                             *");
+    bb.plain("*  farviewpcan application with libraries     *");
+    bb.plain("*                                             *");
+    bb.plain("***********************************************");
+}
+
+addtask display_banner before do_build
+
+FILESEXTRAPATHS:prepend := "${THISDIR}/../../additions/prjdeploy/:"
+
+SRC_URI = "file://farviewpcan"
+
+S = "${WORKDIR}/farviewpcan"
+
+# do_install is to add these files to recipe's destination folder ${D}
+do_install() {
+    install -d ${D}${libdir}
+#    install -m 0644 ${S}/lib/* ${D}${libdir}/
+# it doesn't work to copy shared libraries .so together with symbolic link files
+# either select hard link .so files to install
+# or leave only hard link .so files in the source folder and then copy all together
+    install -m 0644 ${S}/lib/libpcan.so.6 ${D}${libdir}/
+    ln -sf libpcan.so.6 ${D}${libdir}/libpcan.so
+    install -m 0644 ${S}/lib/libpcanfd.so.8 ${D}${libdir}/
+    ln -sf libpcanfd.so.8 ${D}${libdir}/libpcanfd.so
+    install -m 0644 ${S}/lib/libpcanfd.a ${D}${libdir}/
+    install -m 0644 ${S}/lib/libpcanbasic.so.4.8.0 ${D}${libdir}/
+    ln -sf libpcanbasic.so.4.8.0 ${D}${libdir}/libpcanbasic.so
+    ln -sf libpcanbasic.so.4.8.0 ${D}${libdir}/libpcanbasic.so.4
+
+    install -d ${D}${includedir}
+#    install -m 0644 ${S}/include/* ${D}${includedir}/
+    install -m 0644 ${S}/include/pcan.h ${D}${includedir}/
+    install -m 0644 ${S}/include/pcanfd.h ${D}${includedir}/
+    install -m 0644 ${S}/include/libpcan.h ${D}${includedir}/
+    install -m 0644 ${S}/include/libpcanfd.h ${D}${includedir}/
+    install -m 0644 ${S}/include/PCANBasic.h ${D}${includedir}/
+
+    install -d ${D}${bindir}
+    install -m 0755 ${S}/tools/pcaninfo.1.3.2 ${D}${bindir}/
+    ln -sf pcaninfo.1.3.2 ${D}${bindir}/pcaninfo
+    install -m 0755 ${S}/farviewpcan ${D}${bindir}/
+    install -m 0755 ${S}/pcantest.sh ${D}${bindir}/
+}
+
+# Define the order of packages explicitly
+PACKAGES = "${PN} ${PN}-dev ${PN}-staticdev ${PN}-dbg ${PN}-doc ${PN}-locale ${PN}-src"
+
+# add file to FILES so that they are shipped to final image rootfs
+# files that are shipped to the main(runtime) package
+FILES:${PN} += " \
+    ${libdir}/libpcan.so.6 \
+    ${libdir}/libpcanfd.so.8 \
+    ${libdir}/libpcanbasic.so.4.8.0 \
+"
+# files that are shipped to the development package
+FILES:${PN}-dev += " \
+    ${includedir}/*.h \
+    ${libdir}/*.so \
+    ${libdir}/libpcanbasic.so.4 \
+"
+# files that are shipped to the static development package
+FILES:${PN}-staticdev += " \
+    ${libdir}/libpcanfd.a \
+"
+# image recipe: IMAGE_INSTALL += " farviewpcan farviewpcan-dev farviewpcan-staticdev"
+
+# Ensure `-dev` depends on the runtime package
+RDEPENDS:${PN}-dev += "${PN}"
+
+# Exclude static library from the `-dev` package
+EXCLUDE_FROM_DEV += "${libdir}/libpcanfd.a"
+
+#INSANE_SKIP:${PN} += "installed-vs-shipped"		# skip QA for debug purpose
