@@ -127,7 +127,7 @@ typedef struct pcan_rd_msg {
 
 typedef struct pcan_status {
 	WORD  wErrorFlag;      // same as in TPDIAG, is cleared in driver after access
-	int   nLastError;      // is cleared in driver after access
+	int32_t   nLastError;      // is cleared in driver after access
 } TPSTATUS;              // for PCAN_GET_STATUS
 
 typedef struct pcan_diag {
@@ -139,8 +139,8 @@ typedef struct pcan_diag {
 	DWORD dwIRQcounter;    // counts all interrupts
 	DWORD dwErrorCounter;  // counts all errors
 	WORD  wErrorFlag;      // gathers all errors
-	int   nLastError;      // the last local error for this device
-	int   nOpenPaths;      // number of open paths for this device
+	int32_t   nLastError;      // the last local error for this device
+	int32_t   nOpenPaths;      // number of open paths for this device
 	char  szVersionString[VERSIONSTRING_LEN]; // driver version string
 } TPDIAG;                // for PCAN_DIAG, in opposition to PCAN_GET_STATUS nothing is cleared
 
@@ -151,9 +151,9 @@ typedef struct pcan_btr0btr1 {
 
 typedef struct pcan_ext_status {
 	WORD  wErrorFlag;      // same as in TPDIAG, is cleared in driver after access
-	int   nLastError;      // is cleared in driver after access
-	int   nPendingReads;   // count of unread telegrams
-	int   nPendingWrites;  // count of unsent telegrams
+	int32_t   nLastError;      // is cleared in driver after access
+	int32_t   nPendingReads;   // count of unread telegrams
+	int32_t   nPendingWrites;  // count of unsent telegrams
 } TPEXTENDEDSTATUS;      // for PCAN_GET_ESTATUS
 
 typedef struct pcan_msg_filter {
@@ -189,7 +189,7 @@ typedef struct pcan_msg_filter {
 #define PCAN_SF_DATA_MAXLEN	64
 
 typedef struct pcan_extra_params {
-	int   nSubFunction;
+	int32_t   nSubFunction;
 	union {
 		DWORD	dwSerialNumber;
 		BYTE	ucHCDeviceNo;

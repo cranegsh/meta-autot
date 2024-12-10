@@ -67,7 +67,9 @@ scp libpcanbasic/pcanbasic/lib/* crane@192.168.0.77:/home/crane/deploy/lib
 ├── include
 │   ├── libpcanfd.h
 │   ├── libpcan.h
-│   └── PCANBasic.h
+│   ├── PCANBasic.h
+│   ├── pcanfd.h
+│   └── pcan.h
 ├── lib
 │   ├── libpcanbasic.so -> libpcanbasic.so.4.8.0
 │   ├── libpcanbasic.so.4 -> libpcanbasic.so.4.8.0
@@ -83,3 +85,8 @@ scp libpcanbasic/pcanbasic/lib/* crane@192.168.0.77:/home/crane/deploy/lib
     ├── pcaninfo.1.3.2
     └── readme.pcaninfo
 
+Notes:
+1. It seems that only libpcanbasic.so is necessary in running!
+   The static library libpcanfd.a is probably needed in development.
+   The headers are needed in development for sure.
+   Why other shared libraries are not needed in runnning?

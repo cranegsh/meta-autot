@@ -1,0 +1,11 @@
+Auto Tester application
+
+dev dependency (needed for building this project): PCAN package libraries and headers.
+run dependency (needed for runningt this application): PCAN package driver and shared libraries, actually only libpcanbasic.so.
+
+Usually they are not supposed to be placed together with the source files of this application as it is confusing to do so and not a good practice for project source control!
+It is for backup and convenience to place these libraries together with source files, in a separate folder.
+
+They are supposed to copied to standard library path /usr/lib and standard header path /usr/include under system rootfs when being used to compile this project natively.
+They are supposed to copied to standard library path usr/lib and standard header path usr/include under the path specified by "--sysroot=..." in Makefile when being used to compile this project crossly.
+It also works to keep them in where they are now and specify searching path in Makefile (option "-I" for CFLAGS and option "-L" for LDFLAGS) when being used in compiling this project either natively or crossly.
