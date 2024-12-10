@@ -1,5 +1,5 @@
 SUMMARY = "Autot image main application"
-DESCRIPTION = "Main application for Autotester with libraries built with cross SDK separately"
+DESCRIPTION = "Main application for Autotester with 64-bit libraries built with cross SDK separately"
 LICENSE = "CLOSED"
 
 python do_display_banner() {
@@ -33,8 +33,8 @@ do_install() {
     install -d ${D}${bindir}
     install -m 0755 ${S}/tools/pcaninfo.1.3.2 ${D}${bindir}/
     ln -sf pcaninfo.1.3.2 ${D}${bindir}/pcaninfo
-    install -m 0755 ${S}/farviewpcan ${D}${bindir}/
-    install -m 0755 ${S}/pcantest.sh ${D}${bindir}/
+#    install -m 0755 ${S}/farviewpcan ${D}${bindir}/
+#    install -m 0755 ${S}/pcantest.sh ${D}${bindir}/
 }
 
 # Define the order of packages explicitly

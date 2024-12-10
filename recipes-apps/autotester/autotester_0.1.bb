@@ -17,14 +17,18 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/../../additions/prjsrc/:"
 # SRC_URI specifies the final names of the file or directory to be fetched from all search paths.
 # Here, "file://" is to tell Bitbake that the file or directory is local file/path.
 # Bitbake will cope this file or folder to ${WORKDIR}
-SRC_URI = "file://autotester-0.1y"
-S = "${WORKDIR}/autotester-0.1y"
+#SRC_URI = "file://autotester-0.1y"
+#S = "${WORKDIR}/autotester-0.1y"
 
 # Specify the remote repository and branch/tag
-#SRC_URI = "git@github.com:cranegsh/autotester.git;branch=develop-yocto"
-#SRCREV = "3e7b329983bf94a2060a2b0aa5e8140ef79d4530"
+#SRC_URI = "git@github.com:cranegsh/autotester.git;protocol=ssh;branch=develop-yocto"		# not working
+#SRC_URI = "git://git@github.com:cranegsh/autotester.git;protocol=ssh;branch=develop-yocto"	# not working
+SRC_URI = "git://git@github.com/cranegsh/autotester.git;protocol=ssh;branch=develop-yocto"
+#SRC_URI = "https://github.com/cranegsh/autotester.git;protocol=https;branch=develop-yocto"	# not working
+#SRC_URI = "git://github.com/cranegsh/autotester.git;protocol=https;branch=develop-yocto"
+SRCREV = "3e7b329983bf94a2060a2b0aa5e8140ef79d4530"
 # Define the name of the source directory after fetching
-#S = "${WORKDIR}/git"
+S = "${WORKDIR}/git"
 
 # Inherit standard classes
 #inherit cmake # or autotools or meson, depending on your build system
@@ -46,7 +50,6 @@ EXTRA_OEMAKE += "LDFLAGS='-lpcanbasic  -Wl,--hash-style=gnu' CFLAGS='-I${S}/incl
 #}
 
 do_compile() {
-#    oe_runmake CC="${CC}" CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
     oe_runmake
 }
 
