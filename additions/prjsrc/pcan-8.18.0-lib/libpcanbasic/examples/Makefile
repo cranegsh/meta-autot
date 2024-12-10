@@ -15,7 +15,8 @@ define do-make
 @ echo "***"
 @ echo "*** Processing 'C' directory (console examples)..."
 @ echo "***"
-@make -C c PCANBASIC_ROOT=$(PATH_PCANBASIC_ROOT) $1
+#@make -C c PCANBASIC_ROOT=$(PATH_PCANBASIC_ROOT) $1
+@$(MAKE) -C c PCANBASIC_ROOT=$(PATH_PCANBASIC_ROOT) $1
 @echo
 @ echo "***"
 @ echo "*** Processing 'NativeC++' directory (console examples)..."
@@ -48,7 +49,9 @@ $(call do-make, rtai)
 endef
 
 all:
-	$(make-all)
+#	$(make-all)
+#	$(make-all) $(CFLAGS) $(LDFLAGS)
+	$(make-all) CC="$(CC)" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)"
 
 clean:
 	$(make-clean)

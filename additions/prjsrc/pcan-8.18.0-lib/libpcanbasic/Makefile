@@ -19,11 +19,11 @@ define do-make
 @ echo "*** Processing 'pcaninfo' directory..."
 @ echo "***"
 @make -C pcaninfo $1
-@echo
-@ echo "***"
-@ echo "*** Processing 'examples' directory..."
-@ echo "***"
-@make -C examples $1
+#@echo
+#@ echo "***"
+#@ echo "*** Processing 'examples' directory..."
+#@ echo "***"
+#@make -C examples $1
 endef
 
 define make-all

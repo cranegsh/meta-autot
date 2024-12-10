@@ -73,7 +73,8 @@ DISTRO_VERSION = "0.1"
 # Although value assigned ok, but not present in /etc/os-release
 
 IMAGE_INSTALL += " mod-hello mod-pcan"
-IMAGE_INSTALL += " farviewpcan farviewpcan-dev farviewpcan-staticdev"
+#IMAGE_INSTALL += " farviewpcan farviewpcan-dev farviewpcan-staticdev"
+IMAGE_INSTALL += " pcanlib pcanlib-dev"
 # Since there are runtime package and development package for farviewpcan recipe,
 # farviewpcan-dev needs to be added to IMAGE_INSTALL as well
 # farviewpcan-staticdev for static libraries is needed as well if there is any static library in the package

@@ -35,8 +35,9 @@ S = "${WORKDIR}/git"
 
 # Specify any dependencies required to build the project
 #DEPENDS = "libtool gcc g++"
-DEPENDS = "farviewpcan"
+#DEPENDS = "farviewpcan"
 # The libraries needed are from recipe farviewpcan.bb
+DEPENDS = "pcanlib"
 
 # Optional: Custom configuration for the build system (if using cmake)
 #EXTRA_OECMAKE = "-DCMAKE_BUILD_TYPE=Release"
