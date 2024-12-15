@@ -7,7 +7,8 @@ SRC_URI += "file://bcm2709_defconfig"
 
 KERNEL_MODULES = "1"
 
-KERNEL_DEVICETREE := "${@d.get('KERNEL_DEVICETREE', '').replace('broadcom/', '')}"
+#KERNEL_DEVICETREE := "${@d.get('KERNEL_DEVICETREE', '').replace('broadcom/', '')}"
+# The above assignment is not needed for "kirkstone" meta-raspberrypi
 #SDIMG_KERNELIMAGE ?= kernel7.img
 #SDIMG_KERNELIMAGE := kernel7.img
 #SDIMG_KERNELIMAGE ?= "kernel7.img"
