@@ -1,0 +1,23 @@
+From 793e33ad4038f291796db3961aac49433b5c6618 Mon Sep 17 00:00:00 2001
+From: Crane Shao <crane1995@hotmail.com>
+Date: Sun, 15 Dec 2024 17:17:45 +0000
+Subject: [PATCH] enable uart and apply uart0
+
+---
+ config.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/config.txt b/config.txt
+index e28ed02..bfa944a 100644
+--- a/config.txt
++++ b/config.txt
+@@ -1478,3 +1478,6 @@
+ ##     Information can be found in overlays/README
+ ##
+ #dtoverlay=act-led,activelow=off
++
++enable_uart=1
++dtoverlay=uart0
+-- 
+2.34.1
+

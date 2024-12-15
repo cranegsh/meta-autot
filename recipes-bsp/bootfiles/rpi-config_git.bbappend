@@ -4,6 +4,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 #SRC_URI += "file://0001-enable-uart-console-at-pin8-10.patch"
 #SRC_URI += "file://0001-enable-uart-console-at-pin26-27.patch"
+SRC_URI += "file://0001-enable-uart-and-apply-uart0.patch"
 
 do_package:append () {
 #        echo "dtparam=uart0=on" >> ${WORKDIR}/config.txt

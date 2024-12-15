@@ -38,7 +38,8 @@
 #MACHINE ??= "qemux86-64"
 
 #MACHINE ??= "raspberrypi5"
-MACHINE ??= "autot-raspberrypi5"
+#MACHINE ??= "autot-raspberrypi5"
+MACHINE ??= "autot-raspberrypi2"
 
 PREFERRED_PROVIDER_virtual/kernel = "linux-autot"
 PREFERRED_VERSION_linux-autot = "1:6.1.77+git"

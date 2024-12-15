@@ -6,9 +6,14 @@
 #SYMLINK_NAME="autot-image-base-raspberrypi5.rootfs.wic.bz2"
 
 # for machine autot-raspberrypi5
-echo "cd ~/work/yocto/build/tmp/deploy/images/autot-raspberrypi5/"
-cd ~/work/yocto/build/tmp/deploy/images/autot-raspberrypi5/
-SYMLINK_NAME="autot-image-base-autot-raspberrypi5.rootfs.wic.bz2"
+#echo "cd ~/work/yocto/build/tmp/deploy/images/autot-raspberrypi5/"
+#cd ~/work/yocto/build/tmp/deploy/images/autot-raspberrypi5/
+#SYMLINK_NAME="autot-image-base-autot-raspberrypi5.rootfs.wic.bz2"
+
+# for machine autot-raspberrypi2
+echo "cd ~/work/yocto/build/tmp/deploy/images/autot-raspberrypi2/"
+cd ~/work/yocto/build/tmp/deploy/images/autot-raspberrypi2/
+SYMLINK_NAME="autot-image-base-autot-raspberrypi2.rootfs.wic.bz2"
 
 TARGET_FILE=$(readlink "$SYMLINK_NAME")
 echo "target file: $SYMLINK_NAME"

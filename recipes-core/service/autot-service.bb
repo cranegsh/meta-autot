@@ -11,14 +11,10 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 SRC_URI = " \
     file://COPYING.MIT \
-    file://disable-wifi-powersave.service \
-    file://wifi-autoconnect.service \
     file://autot-script.sh \
 "
 
 FILES:${PN} += " \
-    ${sysconfdir}/systemd/system/disable-wifi-powersave.service \
-    ${sysconfdir}/systemd/system/wifi-autoconnect.service \
     /usr/bin/autot-script.sh \
 "
 #    /usr/lib/systemd/system/disable-wifi-powersave.service
@@ -29,10 +25,6 @@ do_install() {
 #    install -m 0644 ${WORKDIR}/disable-wifi-powersave.service ${D}${systemd_system_unitdir}
 #    install -m 0644 ${WORKDIR}/wifi-autoconnect.service ${D}${systemd_system_unitdir}
 
-    install -d ${D}${sysconfdir}/systemd/system/
-    install -m 0644 ${WORKDIR}/disable-wifi-powersave.service ${D}${sysconfdir}/systemd/system
-    install -m 0644 ${WORKDIR}/wifi-autoconnect.service ${D}${sysconfdir}/systemd/system
-
     install -d ${D}/usr/bin
     install -m 0755 ${WORKDIR}/autot-script.sh ${D}/usr/bin/
 }
@@ -40,5 +32,5 @@ do_install() {
 # Enable the service to start on boot
 #SYSTEMD_SERVICE:{PN} = "disable-wifi-powersave.service wifi-autoconnect.service"
 #SYSTEMD_AUTO_ENABLE:{PN} = "enable" 
-SYSTEMD_SERVICE:${PN} = "disable-wifi-powersave.service wifi-autoconnect.service"
+#SYSTEMD_SERVICE:${PN} = "disable-wifi-powersave.service wifi-autoconnect.service"
 SYSTEMD_AUTO_ENABLE:${PN} = "enable" 
