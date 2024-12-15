@@ -41,7 +41,8 @@ S = "${WORKDIR}/pcan-8.18.0-lib"
 #EXTRA_OEMAKE = "LDFLAGS='--sysroot=${STAGING_DIR_TARGET}' CFLAGS='-I${STAGING_DIR_TARGET}/usr/include -I${S}/lib -I${S}/driver -I${S}/libpcanbasic/pcanbasic/include -DNO_RT'"
 #EXTRA_OEMAKE += "--sysroot=${STAGING_DIR_TARGET} CFLAGS='-DNO_RT'"
 #EXTRA_OEMAKE += "CFLAGS='-DNO_RT'"
-EXTRA_OEMAKE += "CFLAGS='-DNO_RT -I${S}/driver -I${S}/lib -I${S}/libpcanbasic/pcanbasic/include -I${S}/libpcanbasic/pcanbasic/src'"
+#EXTRA_OEMAKE += "CFLAGS='-DNO_RT -I${S}/driver -I${S}/lib -I${S}/libpcanbasic/pcanbasic/include -I${S}/libpcanbasic/pcanbasic/src' LDFLAGS='-lm, --hash-style=gnu'"
+EXTRA_OEMAKE += "CFLAGS='-DNO_RT -I${S}/driver -I${S}/lib -I${S}/libpcanbasic/pcanbasic/include -I${S}/libpcanbasic/pcanbasic/src' LDFLAGS='-lm ${LDFLAGS}'"
 
 do_compile() {
 	oe_runmake ARCH=${TARGET_ARCH} CROSS_COMPILE=${TARGET_PREFIX}

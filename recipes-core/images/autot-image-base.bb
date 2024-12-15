@@ -79,3 +79,6 @@ IMAGE_INSTALL += " pcanlib pcanlib-dev"
 # farviewpcan-dev needs to be added to IMAGE_INSTALL as well
 # farviewpcan-staticdev for static libraries is needed as well if there is any static library in the package
 IMAGE_INSTALL += " autotester"
+
+WKS_FILE = "autot-raspberrypi.wks"
+WKS_FILE_DIR = "${THISDIR}/../../wic"

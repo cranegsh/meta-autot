@@ -6,9 +6,9 @@ BBPATH = "${TOPDIR}"
 BBFILES ?= ""
 
 BBLAYERS ?= " \
-  /home/crane/work/yocto/sources/poky/meta \
-  /home/crane/work/yocto/sources/poky/meta-poky \
-  /home/crane/work/yocto/sources/poky/meta-yocto-bsp \
-  /home/crane/work/yocto/sources/meta-raspberrypi \
-  /home/crane/work/yocto/sources/meta-autot \
+  /home/crane/yocto-pi/sources/poky/meta \
+  /home/crane/yocto-pi/sources/poky/meta-poky \
+  /home/crane/yocto-pi/sources/poky/meta-yocto-bsp \
+  /home/crane/yocto-pi/sources/meta-raspberrypi \
+  /home/crane/yocto-pi/sources/meta-autot \
   "

@@ -5,10 +5,10 @@
 #cd ~/work/yocto/build/tmp/deploy/images/raspberrypi5/
 #SYMLINK_NAME="autot-image-base-raspberrypi5.rootfs.wic.bz2"
 
-# for machine autot-raspberrypi5
-echo "cd ~/work/yocto/build/tmp/deploy/images/autot-raspberrypi5/"
-cd ~/work/yocto/build/tmp/deploy/images/autot-raspberrypi5/
-SYMLINK_NAME="autot-image-base-autot-raspberrypi5.rootfs.wic.bz2"
+# for machine autot-raspberrypi2
+echo "cd ~/yocto-pi/build/tmp/deploy/images/autot-raspberrypi2/"
+cd ~/yocto-pi/build/tmp/deploy/images/autot-raspberrypi2/
+SYMLINK_NAME="autot-image-base-autot-raspberrypi2.wic.bz2"
 
 TARGET_FILE=$(readlink "$SYMLINK_NAME")
 echo "target file: $SYMLINK_NAME"
@@ -44,4 +44,4 @@ else
     exit 1
 fi
 
-cd ~/work/yocto/build
+cd ~/yocto-pi/build

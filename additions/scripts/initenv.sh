@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo "export TEMPLATECONF=../meta-autot/conf/templates/conf"
-export TEMPLATECONF=../meta-autot/conf/templates/conf
+echo "export TEMPLATECONF=./sources/meta-autot/conf/templates/conf"
+export TEMPLATECONF=./sources/meta-autot/conf/templates/conf
 if [ $? -ne 0 ]; then
     echo "Failed to set TEMPLATECONF"
     exit 1

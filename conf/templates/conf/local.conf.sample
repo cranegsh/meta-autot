@@ -38,10 +38,11 @@
 #MACHINE ??= "qemux86-64"
 
 #MACHINE ??= "raspberrypi5"
-MACHINE ??= "autot-raspberrypi5"
+MACHINE ??= "autot-raspberrypi2"
+#MACHINE ??= "raspberrypi2"
 
 PREFERRED_PROVIDER_virtual/kernel = "linux-autot"
-PREFERRED_VERSION_linux-autot = "1:6.1.77+git"
+PREFERRED_VERSION_linux-autot = "5.15.%"
 
 # As it slows down build and increse image size, only do it for release version
 #INHERIT += "buildhistory"
@@ -72,7 +73,7 @@ IMAGE_INSTALL:append = " systemd"
 #DISTRO = "autot-distro"
 
 # add kernel headers in SDK
-TOOLCHAIN_TARGET_TASK:append = " kernel-dev kernel-devsrc kernel-modules"
+#TOOLCHAIN_TARGET_TASK:append = " kernel-dev kernel-devsrc kernel-modules"
 #TOOLCHAIN_HOST_TASK:append = " kernel-dev kernel-devsrc kernel-modules"
 
 #
@@ -86,7 +87,7 @@ TOOLCHAIN_TARGET_TASK:append = " kernel-dev kernel-devsrc kernel-modules"
 #
 # The default is a downloads directory under TOPDIR which is the build directory.
 #
-DL_DIR ?= "${TOPDIR}/../downloads"
+DL_DIR ?= "${TOPDIR}/downloads"
 
 #
 # Where to place shared-state files
@@ -102,7 +103,7 @@ DL_DIR ?= "${TOPDIR}/../downloads"
 #
 # The default is a sstate-cache directory under TOPDIR.
 #
-SSTATE_DIR ?= "${TOPDIR}/sstate-cache"
+SSTATE_DIR ?= "${TOPDIR}/../sstate-cache"
 #SSTATE_DIR ?= "/mnt/nfs/sstate-cache"
 
 #
