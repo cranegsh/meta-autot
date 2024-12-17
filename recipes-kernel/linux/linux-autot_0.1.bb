@@ -4,6 +4,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 #SRC_URI += "file://defconfig"
 SRC_URI += "file://bcm2709_defconfig"
+SRC_URI += "file://autot-fragment.cfg"
 
 KERNEL_MODULES = "1"
 

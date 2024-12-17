@@ -73,7 +73,7 @@ IMAGE_INSTALL:append = " systemd"
 #DISTRO = "autot-distro"
 
 # add kernel headers in SDK
-#TOOLCHAIN_TARGET_TASK:append = " kernel-dev kernel-devsrc kernel-modules"
+TOOLCHAIN_TARGET_TASK:append = " kernel-dev kernel-devsrc kernel-modules"
 #TOOLCHAIN_HOST_TASK:append = " kernel-dev kernel-devsrc kernel-modules"
 
 #

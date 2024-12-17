@@ -1,0 +1,23 @@
+From 7dd8f41cbf8b79e2c1e7835094e95cb0b32f0203 Mon Sep 17 00:00:00 2001
+From: cranegsh <crane1995@hotmail.com>
+Date: Mon, 16 Dec 2024 04:39:14 +0000
+Subject: [PATCH] disable GCC plugins
+
+---
+ arch/arm/configs/bcm2709_defconfig | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm/configs/bcm2709_defconfig b/arch/arm/configs/bcm2709_defconfig
+index 702cdd47aff5..b71ef6988662 100644
+--- a/arch/arm/configs/bcm2709_defconfig
++++ b/arch/arm/configs/bcm2709_defconfig
+@@ -1534,3 +1534,6 @@ CONFIG_IRQSOFF_TRACER=y
+ CONFIG_SCHED_TRACER=y
+ CONFIG_BLK_DEV_IO_TRACE=y
+ # CONFIG_UPROBE_EVENTS is not set
++
++# GCC-related options
++CONFIG_GCC_PLUGINS=n
+-- 
+2.34.1
+
