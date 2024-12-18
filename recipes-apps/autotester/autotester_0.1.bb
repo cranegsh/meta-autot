@@ -27,6 +27,7 @@ SRC_URI = "git://git@github.com/cranegsh/autotester.git;protocol=ssh;branch=deve
 #SRC_URI = "https://github.com/cranegsh/autotester.git;protocol=https;branch=develop-yocto"	# not working
 #SRC_URI = "git://github.com/cranegsh/autotester.git;protocol=https;branch=develop-yocto"
 SRCREV = "3e7b329983bf94a2060a2b0aa5e8140ef79d4530"
+
 # Define the name of the source directory after fetching
 S = "${WORKDIR}/git"
 

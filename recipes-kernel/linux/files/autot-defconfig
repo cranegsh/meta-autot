@@ -1,0 +1,2 @@
+# this config is based on bcm2709_defconfig
+CONFIG_GCC_PLUGINS=n

@@ -1,0 +1,5 @@
+sudo cp -r kmbs-patch/arch-arm-include-generated/ /media/crane/root/lib/modules/6.1.77-v7/build/arch/arm/include/generated
+sudo cp -r kmbs-patch/include-generated/ /media/crane/root/lib/modules/6.1.77-v7/build/include/generated
+sudo cp kmbs-patch/scripts-basic-fixdep /media/crane/root/lib/modules/6.1.77-v7/build/scripts/basic/fixdep
+sudo cp kmbs-patch/scripts-mod-modpost /media/crane/root/lib/modules/6.1.77-v7/build/scripts/mod/modpost
+sudo cp kmbs-patch/scripts-recordmcount /media/crane/root/lib/modules/6.1.77-v7/build/scripts/recordmcount

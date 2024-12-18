@@ -1,0 +1,10 @@
+To use this image on Raspberry Pi 2 to run the application:
+The driver and user application are already installed and working.
+The PCAN libraries has the issue of passing wrong ioctl cmd to kernel module and need to be replaced!
+0. fix kernel module build system (probably not needed if not building kernel module)
+1. copy libpopt dev (library and header) to image rootfs (library to /usr/lib and header to /usr/include;
+2. copy PCAN package to image user folder (make sure lib/src/libpcanfd.c is updated to fix the issue);
+3. start image on raspberrypi2;
+4. update PCAN package Makefile to build lib and libpcanbasic only;
+5. copy lib/lib/* and libpcanbasic/pcanbasic/lib/* to the image rootfs to replace the original libraries in /usr/lib;
+6. run the application and it will work fine.

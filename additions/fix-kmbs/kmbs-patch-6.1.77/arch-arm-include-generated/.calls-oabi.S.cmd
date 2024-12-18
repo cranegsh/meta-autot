@@ -1,0 +1,1 @@
+cmd_arch/arm/include/generated/calls-oabi.S := sh /home/crane/work/yocto/build/tmp/work-shared/autot-raspberrypi2/kernel-source/scripts/syscalltbl.sh --abis common,oabi /home/crane/work/yocto/build/tmp/work-shared/autot-raspberrypi2/kernel-source/arch/arm/tools/syscall.tbl arch/arm/include/generated/calls-oabi.S

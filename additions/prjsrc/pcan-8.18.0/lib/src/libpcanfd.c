@@ -187,6 +187,8 @@ struct pcanfd_msg *pcanmsg_to_fd(struct pcanfd_msg *pf, const TPCANRdMsg *msg)
  */
 int pcanfd_set_init(int fd, struct pcanfd_init *pfdi)
 {
+	unsigned int ioctl_cmd;
+
 #ifdef DEBUG
 	__fprintf(stddbg, "%s(fd=%d pfdi=%p)\n", __func__, fd, pfdi);
 #endif
@@ -194,7 +196,12 @@ int pcanfd_set_init(int fd, struct pcanfd_init *pfdi)
 		return -EINVAL;
 
 	pfdi->flags &= OFD_PCANFD_MASK;
-	return -__errno_ioctl(fd, PCANFD_SET_INIT, pfdi);
+
+	printf("Debug pcanfd_set_init: %u | %X, size is %d\r\n", PCANFD_SET_INIT, PCANFD_SET_INIT, sizeof(struct pcanfd_init));
+
+//	return -__errno_ioctl(fd, (unsigned int)(PCANFD_SET_INIT), pfdi);
+	ioctl_cmd = (unsigned int)(PCANFD_SET_INIT);
+	return -__errno_ioctl(fd, ioctl_cmd, pfdi);
 }
 
 /*
@@ -433,13 +440,19 @@ int pcanfd_del_filters(int fd)
  */
 int pcanfd_send_msg(int fd, const struct pcanfd_msg *pfdm)
 {
+	unsigned int ioctl_cmd;
+
 #ifdef DEBUG
 	__fprintf(stddbg, "%s(fd=%d pfdm=%p)\n", __func__, fd, pfdm);
 #endif
 	if (!pfdm)
 		return -EINVAL;
 
-	return -__errno_ioctl(fd, PCANFD_SEND_MSG, pfdm);
+	//printf("Debug pcanfd_send_msg: %u | %X, size %d\r\n", PCANFD_SEND_MSG, PCANFD_SEND_MSG, sizeof(struct pcanfd_msg));
+
+//	return -__errno_ioctl(fd, (unsigned int)(PCANFD_SEND_MSG), pfdm);
+	ioctl_cmd = (unsigned int)(PCANFD_SEND_MSG);
+	return -__errno_ioctl(fd, ioctl_cmd, pfdm);
 }
 
 /*
@@ -1138,6 +1151,8 @@ int pcanfd_open(const char *dev_pcan, __u32 flags, ...)
 
 	o_flags = (flags & PCANFD_INIT_LISTEN_ONLY) ? O_RDONLY : O_RDWR;
 
+	printf("debug pcanfd_open: entering ...\r\n");
+
 	if (flags & OFD_NONBLOCKING)
 		o_flags |= O_NONBLOCK;
 
@@ -1216,6 +1231,8 @@ int pcanfd_open(const char *dev_pcan, __u32 flags, ...)
 	}
 #endif
 
+	printf("debug pcanfd_init: opening device ...\r\n");
+
 	fd = __open(dev_pcan, o_flags);
 	if (fd >= 0) {
 
@@ -1225,6 +1242,8 @@ int pcanfd_open(const char *dev_pcan, __u32 flags, ...)
 			int err;
 
 			initfd.flags = flags & OFD_PCANFD_MASK;
+
+			printf("debug pcanfd_init: calling pcanfd_set_init ...\r\n");
 
 			err = pcanfd_set_init(fd, &initfd);
 			if (err) {
