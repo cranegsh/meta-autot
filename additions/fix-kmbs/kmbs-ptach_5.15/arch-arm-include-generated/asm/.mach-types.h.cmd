@@ -1,0 +1,1 @@
+cmd_arch/arm/include/generated/asm/mach-types.h := awk -f /home/crane/yocto-pi/build/tmp/work-shared/autot-raspberrypi2/kernel-source/arch/arm/tools/gen-mach-types /home/crane/yocto-pi/build/tmp/work-shared/autot-raspberrypi2/kernel-source/arch/arm/tools/mach-types > arch/arm/include/generated/asm/mach-types.h
