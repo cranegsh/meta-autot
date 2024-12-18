@@ -1,0 +1,1 @@
+cmd_arch/arm64/include/generated/asm/cpucaps.h := mkdir -p arch/arm64/include/generated/asm/; awk -f /home/crane/work/yocto/build/tmp/work-shared/autot-raspberrypi5/kernel-source/arch/arm64/tools/gen-cpucaps.awk /home/crane/work/yocto/build/tmp/work-shared/autot-raspberrypi5/kernel-source/arch/arm64/tools/cpucaps > arch/arm64/include/generated/asm/cpucaps.h

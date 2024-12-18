@@ -1,0 +1,1 @@
+cmd_arch/arm64/include/generated/asm/sysreg-defs.h := mkdir -p arch/arm64/include/generated/asm/; awk -f /home/crane/work/yocto/build/tmp/work-shared/autot-raspberrypi5/kernel-source/arch/arm64/tools/gen-sysreg.awk /home/crane/work/yocto/build/tmp/work-shared/autot-raspberrypi5/kernel-source/arch/arm64/tools/sysreg > arch/arm64/include/generated/asm/sysreg-defs.h

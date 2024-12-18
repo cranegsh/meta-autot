@@ -52,14 +52,14 @@ IMAGE_INSTALL += " sudo strace"
 IMAGE_INSTALL += " autot-packagegroup"
 
 # add tools collectively. The recipe for tools-sdk image feature is packagegroup-core-sdk.bb
-#EXTRA_IMAGE_FEATURES += " tools-sdk"
+EXTRA_IMAGE_FEATURES += " tools-sdk"
 
 # add library for development of user app development separately
 #IMAGE_INSTALL += " libpopt-dev"	# use popt-dev instead of libpopt-dev
-#IMAGE_INSTALL += " popt-dev"
+IMAGE_INSTALL += " popt-dev"
 
 # add lib-dev and toolchain for both kernel moduele and user app devlopment in a custom recipe
-#IMAGE_INSTALL += " autot-devtools"
+IMAGE_INSTALL += " autot-devtools"
 
 # enable package management
 #PACKAGE_CLASSES ?= "package_ipk"	# this must be in conf/local.conf

@@ -13,3 +13,5 @@ if [ $? -ne 0 ]; then
     echo "Failed to source environment script"
     exit 1
 fi
+
+cp ../sources/meta-autot/additions/scripts/getwic.sh ./
